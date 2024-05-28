@@ -2,6 +2,7 @@ import { TextInput, PasswordInput, Button } from '@mantine/core';
 import { schemaSignin } from '../../../schemas/schemaSignin';
 import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
+import { useAuth } from '../../../AuthContext'
 
 interface SigninFormValues {
   USER_EMAIL?: string;
@@ -9,14 +10,15 @@ interface SigninFormValues {
 }
 
 export default function ModalSignin() {
-  const { register, handleSubmit, reset, formState: { errors } } = useForm({
+  const { login } = useAuth();
+  const { register, handleSubmit, formState: { errors } } = useForm({
     mode: 'onChange',
     resolver: yupResolver(schemaSignin)
   })
 
   const submitForm = (data: SigninFormValues) => {
     console.log(data)
-    reset()
+    login();
   }
   
   return (

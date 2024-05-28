@@ -1,6 +1,7 @@
 import "./index.scss"
 import { MantineProvider, createTheme } from '@mantine/core';
-import { Outlet } from 'react-router-dom';
+import Home from "./pages/home/Home";
+import { useAuth } from "./AuthContext";
 
 const theme = createTheme({
   primaryColor: 'green',
@@ -23,11 +24,13 @@ const theme = createTheme({
 });
 
 export default function App() {
+  const { isAuthenticated } = useAuth();
+
   return (
     <>
       <MantineProvider theme={theme} defaultColorScheme="auto">
         <div className="body">
-          <Outlet />
+        {isAuthenticated ? <>teste</> : <Home />}
         </div>
       </MantineProvider>
     </>
