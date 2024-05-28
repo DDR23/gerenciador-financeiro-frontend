@@ -10,7 +10,7 @@ interface SigninFormValues {
 
 export default function ModalSignin() {
   const { register, handleSubmit, reset, formState: { errors } } = useForm({
-    mode: 'onBlur',
+    mode: 'onChange',
     resolver: yupResolver(schemaSignin)
   })
 
