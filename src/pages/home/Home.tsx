@@ -1,28 +1,77 @@
-import { Button, Group, Image, Text, Title } from "@mantine/core";
+import { Anchor, Button, Group, Image, Modal, Text, Title } from "@mantine/core";
 import "./index.scss"
+import { useDisclosure } from "@mantine/hooks";
+import { useState } from "react";
+import ModalSignin from "../../components/_ui/modalSignin/ModalSignin";
+import ModalSingup from "../../components/_ui/modalSignup/ModalSignup";
 
 export default function Home() {
+  const [opened, { open, close }] = useDisclosure(false);
+  const [modalContent, setModalContent] = useState<'login' | 'signup' | ''>('');
+
+  const handleOpen = (content: 'login' | 'signup') => {
+    setModalContent(content);
+    open();
+  };
 
   return (
     <>
       <div className="home" >
         <div className="home__content" >
           <Image src='coin.png' />
-          <Title order={1}><Text span c="green" inherit>Organize</Text> suas finanças com facilidade</Title>
-          <Title order={2}>Gerencie suas contas, receitas e despesas de forma simples e intuitiva. <Text span c="green" inherit fw='bold'>Fique no controle do seu dinheiro.</Text></Title>
+          <Title order={1}>Manage <Text span c="green" inherit>Your Finance</Text> with Ease</Title>
+          <Title order={2}>Effortlessly track your bills, income, and expenses. <Text span c="green" inherit fw='bold'>Take control of your money</Text> with simplicity and clarity.</Title>
           <Group className="home__content--btn">
             <Button
+              onClick={() => handleOpen('login')}
               variant="gradient"
-              gradient={{ from: 'teal', to: 'green', deg: 90 }}
+              gradient={{ from: 'teal', to: 'green', deg: 360 }}
             >
-              Entrar
+              Login
             </Button>
             <Button
+              onClick={() => handleOpen('signup')}
               variant="outline"
             >
-              Criar conta
+              Sign up
             </Button>
           </Group>
+          {modalContent === 'login' && (
+            <Modal
+              opened={opened}
+              onClose={close}
+              withCloseButton={false}
+              overlayProps={{
+                backgroundOpacity: 0.55,
+                blur: 3
+              }}>
+              <Title ta="center" mb={10} >
+                Welcome back!
+              </Title>
+              <ModalSignin />
+              <Text c="dimmed" size="sm" ta="center" mt={20}>
+                Do not have an account yet?{' '}
+                <Anchor size="sm" component="button" onClick={() => handleOpen('signup')}>
+                  Create account
+                </Anchor>
+              </Text>
+            </Modal>
+          )}
+          {modalContent === 'signup' && (
+            <Modal
+              opened={opened}
+              onClose={close}
+              withCloseButton={false}
+              overlayProps={{
+                backgroundOpacity: 0.55,
+                blur: 3
+              }}>
+              <Title ta="center" mb={10} >
+                Register Now
+              </Title>
+              <ModalSingup />
+            </Modal>
+          )}
         </div>
       </div>
     </>
