@@ -4,7 +4,7 @@ import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 
 interface SigninFormValues {
-  USER_EMAIL: string;
+  USER_EMAIL?: string;
   USER_PASSWORD?: string;
 }
 
