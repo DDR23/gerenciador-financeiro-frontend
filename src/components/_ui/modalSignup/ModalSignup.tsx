@@ -2,7 +2,7 @@ import { TextInput, PasswordInput, Button } from '@mantine/core';
 import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { schemaSignup } from '../../../schemas/schemaSignup';
-import PasswordStrength from '../passwordStrength/PasswordStrength'; // Importando o componente PasswordStrength do local correto
+import PasswordStrength from '../passwordStrength/PasswordStrength';
 
 interface SigninFormValues {
   USER_EMAIL?: string;
@@ -16,7 +16,7 @@ export default function ModalSignin() {
     resolver: yupResolver(schemaSignup)
   });
 
-  const watchPassword = watch("USER_PASSWORD", ""); // Obtendo o valor do campo de senha
+  const watchPassword = watch("USER_PASSWORD", "");
 
   const submitForm = (data: SigninFormValues) => {
     console.log(data);
@@ -47,7 +47,7 @@ export default function ModalSignin() {
           required
           error={errors.USER_PASSWORD && errors.USER_PASSWORD.type === "required" ? errors.USER_PASSWORD.message : undefined}
         />
-        <PasswordStrength value={watchPassword} /> {/* Passando o valor do campo de senha para o PasswordStrength */}
+        <PasswordStrength value={watchPassword} />
         <Button type='submit' fullWidth mt="xl">
           Register
         </Button>
