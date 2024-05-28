@@ -38,7 +38,7 @@ export default function Home() {
             <Modal
               opened={opened}
               onClose={close}
-              title='Welcome to Your Finance, login with'
+              title='Welcome to Your Finance'
               closeOnClickOutside={false}
               withCloseButton={true}
               overlayProps={{
@@ -58,7 +58,7 @@ export default function Home() {
             <Modal
               opened={opened}
               onClose={close}
-              title='Welcome to Your Finance, register with'
+              title='Welcome to Your Finance'
               closeOnClickOutside={false}
               withCloseButton={true}
               overlayProps={{

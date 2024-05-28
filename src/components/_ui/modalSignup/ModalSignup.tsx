@@ -24,12 +24,14 @@ export default function ModalSignin() {
   const [posted, setPosted] = useState(false);
   const [data, setData] = useState<SigninFormValues>({ USER_EMAIL: '', USER_NAME: '', USER_PASSWORD: '' });
 
-  const { isPosted, isPosting, error, error409 } = usePostAuth<SigninFormValues>(`${import.meta.env.VITE_BASE_URL}/user/create`, data, posted);
+  const { token, isPosted, isPosting, error, error409 } = usePostAuth<SigninFormValues>(`${import.meta.env.VITE_BASE_URL}/user/create`, data, posted);
 
   const submitForm: SubmitHandler<SigninFormValues> = (formData) => {
     setData(formData);
     setPosted(true);
   };
+
+  console.log(token)
 
   useEffect(() => {
     if (error409) {
@@ -54,6 +56,7 @@ export default function ModalSignin() {
     }
     if (isPosted) {
       setPosted(false)
+      localStorage.setItem('token', token)
       notifications.show({
         title: 'Success',
         message: 'User registered successfully.',

@@ -8,6 +8,7 @@ interface ErrorResponse {
 }
 
 interface UsePostAuthResult {
+  token: string;
   isPosted: boolean;
   isPosting: boolean;
   error: ErrorResponse | null;
@@ -15,6 +16,7 @@ interface UsePostAuthResult {
 }
 
 export default function usePostAuth<T>(url: string, data: T, posted: boolean): UsePostAuthResult {
+  const [token, setToken] = useState('');
   const [isPosted, setIsPosted] = useState(false);
   const [isPosting, setIsPosting] = useState(false);
   const [error, setError] = useState<ErrorResponse | null>(null);
@@ -26,11 +28,11 @@ export default function usePostAuth<T>(url: string, data: T, posted: boolean): U
       setError(null);
       setError409(null);
       axios.post(url, data)
-        .then(() => {
+        .then((res) => {
+          setToken(res.data.token)
           setIsPosted(true);
         })
         .catch((err: AxiosError<ErrorResponse>) => {
-          console.log(err)
           if (err.response?.status === 409) {
             setError409(err.response.data);
           } else {
@@ -43,5 +45,5 @@ export default function usePostAuth<T>(url: string, data: T, posted: boolean): U
     }
   }, [posted, url, data]);
 
-  return { isPosted, isPosting, error, error409 };
+  return { token, isPosted, isPosting, error, error409 };
 }
