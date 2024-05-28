@@ -8,7 +8,7 @@ import { notifications } from '@mantine/notifications';
 import { IconCheck, IconCircleCheckFilled, IconX } from '@tabler/icons-react';
 import usePostAuth from '../../../services/usePostAuth';
 
-interface SigninFormValues {
+interface SignupFormValues {
   USER_EMAIL?: string;
   USER_NAME?: string;
   USER_PASSWORD?: string;
@@ -22,11 +22,11 @@ export default function ModalSignin() {
 
   const watchPassword = watch("USER_PASSWORD", "");
   const [posted, setPosted] = useState(false);
-  const [data, setData] = useState<SigninFormValues>({ USER_EMAIL: '', USER_NAME: '', USER_PASSWORD: '' });
+  const [data, setData] = useState<SignupFormValues>({ USER_EMAIL: '', USER_NAME: '', USER_PASSWORD: '' });
 
-  const { token, isPosted, isPosting, error, error409 } = usePostAuth<SigninFormValues>(`${import.meta.env.VITE_BASE_URL}/user/create`, data, posted);
+  const { token, isPosted, isPosting, error, error409 } = usePostAuth<SignupFormValues>(`${import.meta.env.VITE_BASE_URL}/user/create`, data, posted);
 
-  const submitForm: SubmitHandler<SigninFormValues> = (formData) => {
+  const submitForm: SubmitHandler<SignupFormValues> = (formData) => {
     setData(formData);
     setPosted(true);
   };
