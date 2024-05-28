@@ -1,7 +1,8 @@
 import "./index.scss"
 import { MantineProvider, createTheme } from '@mantine/core';
 import Home from "./pages/home/Home";
-import { useAuth } from "./AuthContext";
+import { useAuth } from "./services/AuthContext";
+import { Notifications } from "@mantine/notifications";
 
 const theme = createTheme({
   primaryColor: 'green',
@@ -29,6 +30,7 @@ export default function App() {
   return (
     <>
       <MantineProvider theme={theme} defaultColorScheme="auto">
+        <Notifications />
         <div className="body">
         {isAuthenticated ? <>teste</> : <Home />}
         </div>

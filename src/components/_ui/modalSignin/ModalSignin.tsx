@@ -2,7 +2,7 @@ import { TextInput, PasswordInput, Button } from '@mantine/core';
 import { schemaSignin } from '../../../schemas/schemaSignin';
 import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
-import { useAuth } from '../../../AuthContext'
+import { useAuth } from '../../../services/AuthContext'
 
 interface SigninFormValues {
   USER_EMAIL?: string;
