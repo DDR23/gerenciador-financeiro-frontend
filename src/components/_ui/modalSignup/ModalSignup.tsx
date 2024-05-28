@@ -31,8 +31,6 @@ export default function ModalSignin() {
     setPosted(true);
   };
 
-  console.log(token)
-
   useEffect(() => {
     if (error409) {
       setPosted(false)
