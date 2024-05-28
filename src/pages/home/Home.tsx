@@ -24,8 +24,6 @@ export default function Home() {
           <Group className="home__content--btn">
             <Button
               onClick={() => handleOpen('login')}
-              variant="gradient"
-              gradient={{ from: 'teal', to: 'green', deg: 360 }}
             >
               Login
             </Button>
@@ -40,14 +38,13 @@ export default function Home() {
             <Modal
               opened={opened}
               onClose={close}
-              withCloseButton={false}
+              title='Welcome to Your Finance, login with'
+              closeOnClickOutside={false}
+              withCloseButton={true}
               overlayProps={{
                 backgroundOpacity: 0.55,
                 blur: 3
               }}>
-              <Title ta="center" mb={10} >
-                Welcome back!
-              </Title>
               <ModalSignin />
               <Text c="dimmed" size="sm" ta="center" mt={20}>
                 Do not have an account yet?{' '}
@@ -61,15 +58,20 @@ export default function Home() {
             <Modal
               opened={opened}
               onClose={close}
-              withCloseButton={false}
+              title='Welcome to Your Finance, register with'
+              closeOnClickOutside={false}
+              withCloseButton={true}
               overlayProps={{
                 backgroundOpacity: 0.55,
                 blur: 3
               }}>
-              <Title ta="center" mb={10} >
-                Register Now
-              </Title>
               <ModalSingup />
+              <Text c="dimmed" size="sm" ta="center" mt={20}>
+                Already have an account?{' '}
+                <Anchor size="sm" component="button" onClick={() => handleOpen('login')}>
+                  Login
+                </Anchor>
+              </Text>
             </Modal>
           )}
         </div>
