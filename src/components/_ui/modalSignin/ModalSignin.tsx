@@ -34,6 +34,7 @@ export default function ModalSignin() {
           label="Password"
           placeholder="Your password"
           required
+          error={errors.USER_PASSWORD?.message}
         />
         <Button type='submit' fullWidth mt="xl">
           Sign in
