@@ -4,6 +4,11 @@ import { notifications } from "@mantine/notifications";
 import { IconCategory2, IconCheck, IconHome, IconLogout, IconSettings, IconSwitchHorizontal, IconTargetArrow } from "@tabler/icons-react";
 import { useDisclosure } from "@mantine/hooks";
 import ProviderUser from "../../services/ProviderUser";
+import UserPanel from "../../components/_ui/userPanel/UserPanel";
+import UserGoal from "../../components/_ui/userGoal/UserGoal";
+import UserCategory from "../../components/_ui/userCategory/UserCategory";
+import UserTransaction from "../../components/_ui/userTransaction/UserTransaction";
+import UserSettings from "../../components/_ui/userSettings/UserSettings";
 
 export default function Dashboard() {
   const [mobileOpened, { toggle: toggleMobile }] = useDisclosure();
@@ -66,11 +71,11 @@ export default function Dashboard() {
             </Group>
           </AppShell.Navbar>
           <AppShell.Main>
-            <Tabs.Panel value="dashboard">Dashboard</Tabs.Panel>
-            <Tabs.Panel value="goal">Goals</Tabs.Panel>
-            <Tabs.Panel value="category">Category</Tabs.Panel>
-            <Tabs.Panel value="transaction">Transaction</Tabs.Panel>
-            <Tabs.Panel value="settings">Settings</Tabs.Panel>
+            <Tabs.Panel value="dashboard"><UserPanel /></Tabs.Panel>
+            <Tabs.Panel value="goal"><UserGoal /></Tabs.Panel>
+            <Tabs.Panel value="category"><UserCategory /></Tabs.Panel>
+            <Tabs.Panel value="transaction"><UserTransaction /></Tabs.Panel>
+            <Tabs.Panel value="settings"><UserSettings /></Tabs.Panel>
           </AppShell.Main>
         </Tabs>
       </AppShell>
