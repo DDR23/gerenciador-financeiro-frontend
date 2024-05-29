@@ -1,4 +1,5 @@
-import React, { useMemo } from 'react';
+import React from 'react';
+import { useLocalStorage } from '@mantine/hooks';
 import { Avatar } from '@mantine/core';
 
 interface ProviderUserProps {
@@ -20,8 +21,12 @@ function getRandomColor(): string {
 }
 
 const ProviderUser: React.FC<ProviderUserProps> = ({ name }) => {
+  const [color, _] = useLocalStorage({
+    key: `avatar-color`,
+    defaultValue: getRandomColor(),
+  });
+
   const initials = getInitials(name);
-  const color = useMemo(() => getRandomColor(), []);
 
   return (
     <Avatar src={null} alt={name} color={color}>
