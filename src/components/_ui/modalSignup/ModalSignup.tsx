@@ -5,8 +5,9 @@ import { schemaSignup } from '../../../schemas/schemaSignup';
 import PasswordStrength from '../passwordStrength/PasswordStrength';
 import { useEffect, useState } from 'react';
 import { notifications } from '@mantine/notifications';
-import { IconCheck, IconCircleCheckFilled, IconX } from '@tabler/icons-react';
+import { IconCheck, IconX } from '@tabler/icons-react';
 import usePostAuth from '../../../services/usePostAuth';
+import { useAuth } from '../../../services/AuthContext';
 
 interface SignupFormValues {
   USER_EMAIL?: string;
@@ -20,6 +21,7 @@ export default function ModalSignin() {
     resolver: yupResolver(schemaSignup)
   });
 
+  const { login } = useAuth();
   const watchPassword = watch("USER_PASSWORD", "");
   const [posted, setPosted] = useState(false);
   const [data, setData] = useState<SignupFormValues>({ USER_EMAIL: '', USER_NAME: '', USER_PASSWORD: '' });
@@ -62,6 +64,7 @@ export default function ModalSignin() {
         color: 'green',
         icon: <IconCheck />,
       })
+      login()
     }
   }, [error409, error, isPosted]);
 
@@ -77,20 +80,6 @@ export default function ModalSignin() {
               blur: 2
             }}
           />
-        </div>
-      </>
-    )
-  }
-
-  if (isPosted) {
-    return (
-      <>
-        <div style={{
-          display: 'flex',
-          flexDirection: 'column',
-          alignItems: 'center'
-        }}>
-          <IconCircleCheckFilled size={200} color='#00bc6e' />
         </div>
       </>
     )
