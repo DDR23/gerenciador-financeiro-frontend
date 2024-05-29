@@ -1,8 +1,12 @@
-import { TextInput, PasswordInput, Button } from '@mantine/core';
+import { TextInput, PasswordInput, Button, LoadingOverlay, rem, Text } from '@mantine/core';
 import { schemaSignin } from '../../../schemas/schemaSignin';
-import { useForm } from 'react-hook-form';
+import { SubmitHandler, useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { useAuth } from '../../../services/AuthContext'
+import { useEffect, useState } from 'react';
+import usePostAuth from '../../../services/usePostAuth';
+import { IconCheck } from '@tabler/icons-react';
+import { notifications } from '@mantine/notifications';
 
 interface SigninFormValues {
   USER_EMAIL?: string;
@@ -16,11 +20,51 @@ export default function ModalSignin() {
     resolver: yupResolver(schemaSignin)
   })
 
-  const submitForm = (data: SigninFormValues) => {
-    console.log(data)
-    login();
+  const [posted, setPosted] = useState(false);
+  const [data, setData] = useState<SigninFormValues>({ USER_EMAIL: '', USER_PASSWORD: '' });
+
+  const { token, isPosted, isPosting, error } = usePostAuth<SigninFormValues>(`${import.meta.env.VITE_BASE_URL}/user/login`, data, posted);
+
+  const submitForm: SubmitHandler<SigninFormValues> = (formData) => {
+    setData(formData);
+    setPosted(true);
+  };
+
+  useEffect(() => {
+    if (error) {
+      setPosted(false)
+    }
+    if (isPosted) {
+      setPosted(false)
+      localStorage.setItem('token', token)
+      login();
+      notifications.show({
+        title: 'Success',
+        message: 'Logged in successfully.',
+        autoClose: 7000,
+        color: 'green',
+        icon: <IconCheck />,
+      })
+    }
+  }, [error, isPosted]);
+
+  if (isPosting) {
+    return (
+      <>
+        <div style={{ padding: rem(100) }}>
+          <LoadingOverlay
+            visible={true}
+            zIndex={1000}
+            overlayProps={{
+              radius: "sm",
+              blur: 2
+            }}
+          />
+        </div>
+      </>
+    )
   }
-  
+
   return (
     <>
       <form onSubmit={handleSubmit(submitForm)}>
@@ -38,6 +82,11 @@ export default function ModalSignin() {
           required
           error={errors.USER_PASSWORD?.message}
         />
+        {error && (
+          <Text c="red" size="sm" ta="center" mt={10}>
+          {error.message}
+          </Text>
+        )}
         <Button type='submit' fullWidth mt="xl">
           Sign in
         </Button>
