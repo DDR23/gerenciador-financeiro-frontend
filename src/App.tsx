@@ -3,6 +3,7 @@ import { MantineProvider, createTheme } from '@mantine/core';
 import Home from "./pages/home/Home";
 import { useAuth } from "./services/AuthContext";
 import { Notifications } from "@mantine/notifications";
+import Dashboard from "./pages/dashboard/Dashboard";
 
 const theme = createTheme({
   primaryColor: 'green',
@@ -32,7 +33,7 @@ export default function App() {
       <MantineProvider theme={theme} defaultColorScheme="auto">
         <Notifications />
         <div className="body">
-        {isAuthenticated ? <>teste</> : <Home />}
+        {isAuthenticated ? <Dashboard /> : <Home />}
         </div>
       </MantineProvider>
     </>
