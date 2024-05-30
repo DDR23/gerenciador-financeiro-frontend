@@ -23,6 +23,8 @@ export const AuthProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
     setIsAuthenticated(false);
     localStorage.removeItem('isAuthenticated');
     localStorage.removeItem('token');
+    localStorage.removeItem('selectedTab');
+    localStorage.removeItem('avatar-color');
   };
 
   useEffect(() => {

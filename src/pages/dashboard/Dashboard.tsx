@@ -9,11 +9,21 @@ import UserGoal from "../../components/_ui/userGoal/UserGoal";
 import UserCategory from "../../components/_ui/userCategory/UserCategory";
 import UserTransaction from "../../components/_ui/userTransaction/UserTransaction";
 import UserSettings from "../../components/_ui/userSettings/UserSettings";
+import { useEffect, useState } from "react";
 
 export default function Dashboard() {
+  const { logout } = useAuth();
   const [mobileOpened, { toggle: toggleMobile }] = useDisclosure();
   const [desktopOpened, { toggle: toggleDesktop }] = useDisclosure(true);
-  const { logout } = useAuth();
+
+  const [selectedTab, setSelectedTab] = useState<any>(() => {
+    const storedTab = localStorage.getItem('selectedTab');
+    return storedTab || 'dashboard';
+  });
+
+  useEffect(() => {
+    localStorage.setItem('selectedTab', selectedTab);
+  }, [selectedTab]);
 
   const doLogout = () => {
     notifications.show({
@@ -36,7 +46,8 @@ export default function Dashboard() {
         padding="md"
       >
         <Tabs
-          defaultValue="dashboard"
+          value={selectedTab}
+          onChange={setSelectedTab}
           orientation="vertical"
         >
           <AppShell.Header>
