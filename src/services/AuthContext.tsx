@@ -1,3 +1,5 @@
+import { notifications } from '@mantine/notifications';
+import { IconCheck } from '@tabler/icons-react';
 import React, { createContext, useContext, useState, ReactNode, useEffect } from 'react';
 
 interface AuthContextType {
@@ -17,6 +19,13 @@ export const AuthProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
   const login = () => {
     setIsAuthenticated(true);
     localStorage.setItem('isAuthenticated', 'true');
+    notifications.show({
+      title: 'Success',
+      message: 'Logged in successfully.',
+      autoClose: 7000,
+      color: 'green',
+      icon: <IconCheck />,
+    })
   };
 
   const logout = () => {
@@ -25,6 +34,13 @@ export const AuthProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
     localStorage.removeItem('token');
     localStorage.removeItem('selectedTab');
     localStorage.removeItem('avatar-color');
+    notifications.show({
+      title: 'Bye',
+      message: 'We look forward to seeing you soon',
+      autoClose: 7000,
+      color: 'green',
+      icon: <IconCheck />,
+    })
   };
 
   useEffect(() => {

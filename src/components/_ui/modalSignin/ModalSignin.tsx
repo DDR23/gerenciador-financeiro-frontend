@@ -38,13 +38,6 @@ export default function ModalSignin() {
       setPosted(false)
       localStorage.setItem('token', token)
       login();
-      notifications.show({
-        title: 'Success',
-        message: 'Logged in successfully.',
-        autoClose: 7000,
-        color: 'green',
-        icon: <IconCheck />,
-      })
     }
   }, [error, isPosted]);
 
