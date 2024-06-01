@@ -1,7 +1,6 @@
 import { AppShell, Burger, Button, Group, Image, Tabs, Text } from "@mantine/core";
-import { useAuth } from "../../services/AuthContext";
-import { notifications } from "@mantine/notifications";
-import { IconCategory2, IconCheck, IconHome, IconLogout, IconSettings, IconSwitchHorizontal, IconTargetArrow } from "@tabler/icons-react";
+import { useAuth } from "../../services/AuthContext"
+import { IconCategory2, IconHome, IconLogout, IconSettings, IconSwitchHorizontal, IconTargetArrow } from "@tabler/icons-react";
 import { useDisclosure } from "@mantine/hooks";
 import ProviderUser from "../../services/ProviderUser";
 import UserPanel from "../../components/_ui/userPanel/UserPanel";
@@ -10,9 +9,12 @@ import UserCategory from "../../components/_ui/userCategory/UserCategory";
 import UserTransaction from "../../components/_ui/userTransaction/UserTransaction";
 import UserSettings from "../../components/_ui/userSettings/UserSettings";
 import { useEffect, useState } from "react";
+import useGet from "../../services/useGet";
 
 export default function Dashboard() {
+  const authToken = localStorage.getItem('token')
   const { logout } = useAuth();
+
   const [mobileOpened, { toggle: toggleMobile }] = useDisclosure();
   const [desktopOpened, { toggle: toggleDesktop }] = useDisclosure(true);
 
@@ -20,23 +22,18 @@ export default function Dashboard() {
     const storedTab = localStorage.getItem('selectedTab');
     return storedTab || 'dashboard';
   });
+  
+  const { data } = useGet(`${import.meta.env.VITE_BASE_URL}/me`, {
+    headers: {
+      Authorization: `Bearer ${authToken}`
+    }
+  });
+  
+  const userName = data ? data.USER_NAME: '';
 
   useEffect(() => {
     localStorage.setItem('selectedTab', selectedTab);
   }, [selectedTab]);
-
-  const doLogout = () => {
-    notifications.show({
-      title: 'Bye',
-      message: 'We look forward to seeing you soon',
-      autoClose: 7000,
-      color: 'green',
-      icon: <IconCheck />,
-    })
-    logout()
-  }
-
-  const userName = 'Andre Campos'
 
   return (
     <>
@@ -76,7 +73,7 @@ export default function Dashboard() {
               <Tabs.Tab value="settings" leftSection={<IconSettings />}>Settings</Tabs.Tab>
             </Tabs.List>
             <Group >
-              <Button onClick={doLogout} fullWidth leftSection={<IconLogout />} >
+              <Button onClick={() => logout()} fullWidth leftSection={<IconLogout />} >
                 Logout
               </Button>
             </Group>
