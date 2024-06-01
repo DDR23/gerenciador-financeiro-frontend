@@ -5,8 +5,6 @@ import { yupResolver } from '@hookform/resolvers/yup';
 import { useAuth } from '../../../services/AuthContext'
 import { useEffect, useState } from 'react';
 import usePostAuth from '../../../services/usePostAuth';
-import { IconCheck } from '@tabler/icons-react';
-import { notifications } from '@mantine/notifications';
 
 interface SigninFormValues {
   USER_EMAIL?: string;
