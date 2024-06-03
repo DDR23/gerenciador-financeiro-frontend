@@ -76,7 +76,7 @@ export default function Dashboard() {
             </Button>
           </Group>
         </AppShell.Navbar>
-        <AppShell.Main mx='auto'>
+        <AppShell.Main w='100%' h='auto'>
           <Tabs.Panel value="dashboard"><UserPanel /></Tabs.Panel>
           <Tabs.Panel value="goal"><UserGoal /></Tabs.Panel>
           <Tabs.Panel value="category"><UserCategory /></Tabs.Panel>
