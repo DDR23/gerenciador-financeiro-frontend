@@ -4,6 +4,7 @@ import { Avatar } from '@mantine/core';
 
 interface ProviderUserProps {
   name: string;
+  size: any;
 }
 
 function getInitials(name: string): string {
@@ -20,7 +21,7 @@ function getRandomColor(): string {
   return colors[randomIndex];
 }
 
-const ProviderUser: React.FC<ProviderUserProps> = ({ name }) => {
+const ProviderUser: React.FC<ProviderUserProps> = ({ name, size }) => {
   const [color, _] = useLocalStorage({
     key: `avatar-color`,
     defaultValue: getRandomColor(),
@@ -29,7 +30,7 @@ const ProviderUser: React.FC<ProviderUserProps> = ({ name }) => {
   const initials = getInitials(name);
 
   return (
-    <Avatar src={null} alt={name} color={color}>
+    <Avatar size={size} src={null} alt={name} color={color} mx='auto'>
       {initials}
     </Avatar>
   );
