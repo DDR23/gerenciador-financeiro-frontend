@@ -36,7 +36,11 @@ export default function usePostAuth<T>(url: string, data: T, posted: boolean): U
           if (err.response?.status === 409) {
             setError409(err.response.data);
           } else {
-            setError(err.response?.data?? { code: 500, error: "Internal server error", message: "An error occurred on our servers. Please try again later." });
+            setError(err.response?.data?? { 
+              error: "Internal server error",
+              message: "An error occurred on our servers. Please try again later.",
+              code: 500
+            });
           }
         })
         .finally(() => {
