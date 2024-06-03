@@ -34,7 +34,6 @@ export default function Dashboard() {
   const userName = data ? data.USER_NAME : '';
   const userEmail = data ? data.USER_EMAIL : '';
 
-
   return (
     <AppShell
       header={{ height: 60 }}

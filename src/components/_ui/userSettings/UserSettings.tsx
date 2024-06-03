@@ -13,7 +13,6 @@ export default function UserSettings({ userName, userEmail }: any) {
         <Text ta="center" c="dimmed" fz="sm">
           {userEmail}
         </Text>
-
         <Button leftSection={<IconEdit />} variant="default" fullWidth mt="md">
           Edit User
         </Button>
