@@ -11,7 +11,7 @@ interface UseGetOptions extends AxiosRequestConfig {}
 
 export default function useGet(url: string, options: UseGetOptions = {}) {
   const [data, setData] = useState<any>(null);
-  const [isGeting, setIsGeting] = useState<boolean>(true)
+  const [isGetting, setIsGetting] = useState<boolean>(true)
   const [error, setError] = useState<ErrorResponse | null>(null);
 
   useEffect(() => {
@@ -23,9 +23,9 @@ export default function useGet(url: string, options: UseGetOptions = {}) {
         setError(err)
       })
       .finally(() => {
-        setIsGeting(false)
+        setIsGetting(false)
       })
   }, [])
 
-  return { data, isGeting, error }
+  return { data, isGetting, error }
 }
