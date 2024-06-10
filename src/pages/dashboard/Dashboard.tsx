@@ -6,7 +6,7 @@ import ProviderUser from "../../services/ProviderUser";
 import UserPanel from "../../components/userPanel/UserPanel";
 import UserGoal from "../../components/userGoal/UserGoal";
 import UserCategory from "../../components/userCategory/UserCategory";
-import UserTransaction from "../../components/_ui/userTransaction/UserTransaction";
+import UserTransaction from "../../components/userTransaction/UserTransaction";
 import UserSettings from "../../components/userSettings/UserSettings";
 import { useEffect, useState } from "react";
 import useGet from "../../services/useGet";
