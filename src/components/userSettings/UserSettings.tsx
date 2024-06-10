@@ -1,5 +1,5 @@
 import { Button, Paper, Text } from "@mantine/core";
-import ProviderUser from "../../../services/ProviderUser";
+import ProviderUser from "../../services/ProviderUser";
 import { IconEdit } from "@tabler/icons-react";
 
 export default function UserSettings({ userName, userEmail }: any) {

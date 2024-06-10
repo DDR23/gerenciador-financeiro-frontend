@@ -3,11 +3,11 @@ import { useAuth } from "../../services/AuthContext"
 import { IconCategory2, IconHome, IconLogout, IconSettings, IconSwitchHorizontal, IconTargetArrow } from "@tabler/icons-react";
 import { useDisclosure } from "@mantine/hooks";
 import ProviderUser from "../../services/ProviderUser";
-import UserPanel from "../../components/_ui/userPanel/UserPanel";
-import UserGoal from "../../components/_ui/userGoal/UserGoal";
-import UserCategory from "../../components/_ui/userCategory/UserCategory";
+import UserPanel from "../../components/userPanel/UserPanel";
+import UserGoal from "../../components/userGoal/UserGoal";
+import UserCategory from "../../components/userCategory/UserCategory";
 import UserTransaction from "../../components/_ui/userTransaction/UserTransaction";
-import UserSettings from "../../components/_ui/userSettings/UserSettings";
+import UserSettings from "../../components/userSettings/UserSettings";
 import { useEffect, useState } from "react";
 import useGet from "../../services/useGet";
 
