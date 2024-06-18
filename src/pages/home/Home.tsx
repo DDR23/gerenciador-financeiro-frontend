@@ -20,7 +20,7 @@ export default function Home() {
         <div className="home__content" >
           <Image src='coin.png' />
           <Title order={1}>Manage <Text span c="green" inherit>Your Finance</Text> with Ease</Title>
-          <Title order={2}>Effortlessly track your bills, income, and expenses. <Text span c="green" inherit fw='bold'>Take control of your money</Text> with simplicity and clarity.</Title>
+          <Title fw={600} order={2}>Effortlessly track your bills, income, and expenses. <Text span c="green" inherit fw='700'>Take control of your money</Text> with simplicity and clarity.</Title>
           <Group className="home__content--btn">
             <Button
               onClick={() => handleOpen('login')}
