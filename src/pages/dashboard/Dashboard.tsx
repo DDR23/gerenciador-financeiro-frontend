@@ -1,8 +1,8 @@
 import { AppShell, Burger, Button, Group, Image, Tabs, Text } from "@mantine/core";
-import { useAuth } from "../../services/AuthContext"
+import { useAuth } from "../../contexts/AuthContext"
 import { IconCategory2, IconHome, IconLogout, IconSettings, IconSwitchHorizontal, IconTargetArrow } from "@tabler/icons-react";
 import { useDisclosure } from "@mantine/hooks";
-import ProviderUser from "../../services/ProviderUser";
+import ProviderUser from "../../utils/ProviderUser";
 import UserPanel from "../../components/userPanel/UserPanel";
 import UserGoal from "../../components/userGoal/UserGoal";
 import UserCategory from "../../components/userCategory/UserCategory";
@@ -76,6 +76,7 @@ export default function Dashboard() {
               leftSection={<IconLogout />}
               fullWidth
               variant="outline"
+              color="#e03131"
               fw='200'
             >
               Logout

@@ -1,5 +1,5 @@
 import { Button, Modal, Paper } from "@mantine/core";
-import ProviderUser from "../../services/ProviderUser";
+import ProviderUser from "../../utils/ProviderUser";
 import { IconEdit } from "@tabler/icons-react";
 import { useDisclosure } from "@mantine/hooks";
 import { useState } from "react";
@@ -52,6 +52,7 @@ export default function UserSettings({ userName, userEmail }: any) {
           onClick={() => handleOpen('deleted')}
           fullWidth
           variant="outline"
+          color="#e03131"
           mt="md"
           fw={200}
         >

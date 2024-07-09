@@ -2,7 +2,7 @@ import { TextInput, PasswordInput, Button, LoadingOverlay, rem, Text } from '@ma
 import { schemaSignin } from '../../../schemas/schemaSignin';
 import { SubmitHandler, useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
-import { useAuth } from '../../../services/AuthContext'
+import { useAuth } from '../../../contexts/AuthContext'
 import { useEffect, useState } from 'react';
 import usePostAuth from '../../../hooks/usePostAuth';
 

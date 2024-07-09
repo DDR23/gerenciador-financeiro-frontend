@@ -1,6 +1,6 @@
 import { MantineProvider, createTheme, rem } from '@mantine/core';
 import Home from "./pages/home/Home";
-import { useAuth } from "./services/AuthContext";
+import { useAuth } from "./contexts/AuthContext";
 import { Notifications } from "@mantine/notifications";
 import Dashboard from "./pages/dashboard/Dashboard";
 

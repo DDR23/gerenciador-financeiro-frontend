@@ -4,7 +4,7 @@ import App from './App.tsx'
 import './styles/globals.scss'
 import { Navigate, RouterProvider, createBrowserRouter } from 'react-router-dom'
 import '@mantine/core/styles.css';
-import { AuthProvider } from './services/AuthContext.tsx'
+import { AuthProvider } from './contexts/AuthContext.tsx'
 import '@mantine/notifications/styles.css';
 
 const router = createBrowserRouter([
