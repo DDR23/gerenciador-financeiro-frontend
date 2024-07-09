@@ -1,4 +1,3 @@
-import "./index.scss"
 import { MantineProvider, createTheme, rem } from '@mantine/core';
 import Home from "./pages/home/Home";
 import { useAuth } from "./services/AuthContext";
@@ -7,12 +6,12 @@ import Dashboard from "./pages/dashboard/Dashboard";
 
 const theme = createTheme({
   primaryColor: 'green',
-  fontFamily: 'Verdana, sans-serif',
+  fontFamily: 'Alata, sans-serif',
   fontSizes: {
-    xs: rem(10),
-    sm: rem(11),
-    md: rem(14),
-    lg: rem(16),
+    xs: rem(12),
+    sm: rem(14),
+    md: rem(16),
+    lg: rem(18),
     xl: rem(20),
   },
   colors: {
@@ -40,7 +39,7 @@ export default function App() {
       <MantineProvider theme={theme} defaultColorScheme="auto">
         <Notifications />
         <div className="body">
-        {isAuthenticated ? <Dashboard /> : <Home />}
+          {isAuthenticated ? <Dashboard /> : <Home />}
         </div>
       </MantineProvider>
     </>

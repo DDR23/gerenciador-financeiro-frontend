@@ -5,7 +5,7 @@ import { schemaSignup } from '../../../schemas/schemaSignup';
 import PasswordStrength from '../passwordStrength/PasswordStrength';
 import { useEffect, useState } from 'react';
 import { notifications } from '@mantine/notifications';
-import { IconCheck, IconX } from '@tabler/icons-react';
+import { IconX } from '@tabler/icons-react';
 import usePostAuth from '../../../services/usePostAuth';
 import { useAuth } from '../../../services/AuthContext';
 
@@ -56,14 +56,7 @@ export default function ModalSignin() {
     }
     if (isPosted) {
       setPosted(false)
-      localStorage.setItem('token', token)
-      notifications.show({
-        title: 'Success',
-        message: 'User registered successfully.',
-        autoClose: 7000,
-        color: 'green',
-        icon: <IconCheck />,
-      })
+      localStorage.setItem('token', token?.token as string)
       login()
     }
   }, [error409, error, isPosted]);
@@ -90,6 +83,7 @@ export default function ModalSignin() {
       <form onSubmit={handleSubmit(submitForm)}>
         <TextInput
           {...register('USER_EMAIL')}
+          autoComplete='username'
           label="Email"
           placeholder="your@email.com"
           required
@@ -97,6 +91,7 @@ export default function ModalSignin() {
         />
         <TextInput
           {...register('USER_NAME')}
+          autoComplete='na'
           label="Name"
           placeholder="Your Name"
           required

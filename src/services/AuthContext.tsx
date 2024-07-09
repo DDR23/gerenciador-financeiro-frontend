@@ -31,6 +31,7 @@ export const AuthProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
   const logout = () => {
     setIsAuthenticated(false);
     localStorage.removeItem('isAuthenticated');
+    localStorage.removeItem('tokenAdmin');
     localStorage.removeItem('token');
     localStorage.removeItem('selectedTab');
     localStorage.removeItem('avatar-color');

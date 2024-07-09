@@ -7,8 +7,13 @@ interface ErrorResponse {
   message: string;
 }
 
-interface UsePostAuthResult {
+interface TokenAccess {
   token: string;
+  tokenAdmin?: string;
+}
+
+interface UsePostAuthResult {
+  token: TokenAccess | null;
   isPosted: boolean;
   isPosting: boolean;
   error: ErrorResponse | null;
@@ -16,7 +21,7 @@ interface UsePostAuthResult {
 }
 
 export default function usePostAuth<T>(url: string, data: T, posted: boolean): UsePostAuthResult {
-  const [token, setToken] = useState('');
+  const [token, setToken] = useState<TokenAccess | null>(null);
   const [isPosted, setIsPosted] = useState(false);
   const [isPosting, setIsPosting] = useState(false);
   const [error, setError] = useState<ErrorResponse | null>(null);
@@ -29,7 +34,7 @@ export default function usePostAuth<T>(url: string, data: T, posted: boolean): U
       setError409(null);
       axios.post(url, data)
         .then((res) => {
-          setToken(res.data.token)
+          setToken(res.data)
           setIsPosted(true);
         })
         .catch((err: AxiosError<ErrorResponse>) => {

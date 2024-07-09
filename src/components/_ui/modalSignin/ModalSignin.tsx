@@ -34,7 +34,8 @@ export default function ModalSignin() {
     }
     if (isPosted) {
       setPosted(false)
-      localStorage.setItem('token', token)
+      localStorage.setItem('token', token?.token as string)
+      localStorage.setItem('tokenAdmin', token?.tokenAdmin as string)
       login();
     }
   }, [error, isPosted]);
@@ -61,6 +62,7 @@ export default function ModalSignin() {
       <form onSubmit={handleSubmit(submitForm)}>
         <TextInput
           {...register('USER_EMAIL')}
+          autoComplete='username'
           label="Email"
           placeholder="your@email.com"
           required
@@ -68,6 +70,7 @@ export default function ModalSignin() {
           />
         <PasswordInput
           {...register('USER_PASSWORD')}
+          autoComplete='current-password'
           label="Password"
           placeholder="Your password"
           required
