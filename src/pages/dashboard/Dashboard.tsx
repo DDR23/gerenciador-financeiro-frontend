@@ -9,11 +9,11 @@ import UserCategory from "../../components/userCategory/UserCategory";
 import UserTransaction from "../../components/userTransaction/UserTransaction";
 import UserSettings from "../../components/userSettings/UserSettings";
 import { useEffect, useState } from "react";
-import useGet from "../../services/useGet";
+import useGet from "../../hooks/useGet";
 
 export default function Dashboard() {
   const [mobileOpened, { toggle: toggleMobile }] = useDisclosure();
-  const [desktopOpened, { toggle: toggleDesktop }] = useDisclosure(true);
+  const [desktopOpened, { toggle: toggleDesktop }] = useDisclosure(false);
   const { logout } = useAuth();
   const authToken = localStorage.getItem('token')
 
@@ -56,7 +56,7 @@ export default function Dashboard() {
             </Group>
             <Group>
               <Text c="dimmed" size="sm" inline >Welcome, {userName}</Text>
-              <ProviderUser name={userName} size='2.3rem' />  
+              <ProviderUser name={userName} size='2.3rem' />
             </Group>
           </Group>
         </AppShell.Header>
@@ -71,17 +71,27 @@ export default function Dashboard() {
             <Tabs.Tab value="settings" leftSection={<IconSettings />}>Settings</Tabs.Tab>
           </Tabs.List>
           <Group >
-            <Button onClick={() => logout()} fullWidth leftSection={<IconLogout />} >
+            <Button
+              onClick={() => logout()}
+              leftSection={<IconLogout />}
+              fullWidth
+              variant="outline"
+              fw='200'
+            >
               Logout
             </Button>
           </Group>
         </AppShell.Navbar>
-        <AppShell.Main w='100%' h='auto'>
+        <AppShell.Main w='100vw' h='100vh'>
           <Tabs.Panel value="dashboard"><UserPanel /></Tabs.Panel>
           <Tabs.Panel value="goal"><UserGoal /></Tabs.Panel>
           <Tabs.Panel value="category"><UserCategory /></Tabs.Panel>
           <Tabs.Panel value="transaction"><UserTransaction /></Tabs.Panel>
-          <Tabs.Panel value="settings"><UserSettings userName={userName} userEmail={userEmail}/></Tabs.Panel>
+          <Tabs.Panel h='100%' value="settings">
+            <Group display='flex' h='100%'>
+              <UserSettings userName={userName} userEmail={userEmail} />
+            </Group>
+          </Tabs.Panel>
         </AppShell.Main>
       </Tabs>
     </AppShell>

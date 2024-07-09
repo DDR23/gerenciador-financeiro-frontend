@@ -6,7 +6,7 @@ import PasswordStrength from '../passwordStrength/PasswordStrength';
 import { useEffect, useState } from 'react';
 import { notifications } from '@mantine/notifications';
 import { IconX } from '@tabler/icons-react';
-import usePostAuth from '../../../services/usePostAuth';
+import usePostAuth from '../../../hooks/usePostAuth';
 import { useAuth } from '../../../services/AuthContext';
 
 interface SignupFormValues {

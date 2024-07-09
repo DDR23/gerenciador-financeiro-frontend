@@ -3,6 +3,7 @@ import ProviderUser from "../../services/ProviderUser";
 import { IconEdit } from "@tabler/icons-react";
 import { useDisclosure } from "@mantine/hooks";
 import { useState } from "react";
+import ModalEditName from "../_ui/modalEditName/ModalEditName";
 
 export default function UserSettings({ userName, userEmail }: any) {
   const [opened, { open, close }] = useDisclosure(false);
@@ -15,7 +16,7 @@ export default function UserSettings({ userName, userEmail }: any) {
 
   return (
     <>
-      <Paper radius="md" withBorder maw="90vw" mx="auto" w="30rem" p="lg">
+      <Paper radius="md" withBorder maw="90vw" m="auto" w="30rem" p="lg">
         <ProviderUser name={userName} size={120} />
         <Button
           onClick={() => handleOpen('editName')}
@@ -49,8 +50,8 @@ export default function UserSettings({ userName, userEmail }: any) {
         </Button>
         <Button
           onClick={() => handleOpen('deleted')}
-          bg='red'
           fullWidth
+          variant="outline"
           mt="md"
           fw={200}
         >
@@ -61,14 +62,14 @@ export default function UserSettings({ userName, userEmail }: any) {
         <Modal
           opened={opened}
           onClose={close}
-          title='EDITAR NOME'
+          title='Editar nome'
           // closeOnClickOutside={false}
           withCloseButton={true}
           overlayProps={{
             backgroundOpacity: 0.55,
             blur: 3
           }}>
-          {/* COLOCAR MODAL AQUI */}
+          <ModalEditName />
         </Modal>
       )}
       {modalContent === 'editPassword' && (

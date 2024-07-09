@@ -4,7 +4,7 @@ import { SubmitHandler, useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { useAuth } from '../../../services/AuthContext'
 import { useEffect, useState } from 'react';
-import usePostAuth from '../../../services/usePostAuth';
+import usePostAuth from '../../../hooks/usePostAuth';
 
 interface SigninFormValues {
   USER_EMAIL?: string;
