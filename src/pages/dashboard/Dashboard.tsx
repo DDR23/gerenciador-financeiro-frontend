@@ -11,6 +11,12 @@ import UserSettings from "../../components/userSettings/UserSettings";
 import { useEffect, useState } from "react";
 import useGet from "../../hooks/useGet";
 
+interface UserProps {
+  USER_ID: number;
+  USER_NAME: string;
+  USER_EMAIL: string;
+}
+
 export default function Dashboard() {
   const [mobileOpened, { toggle: toggleMobile }] = useDisclosure();
   const [desktopOpened, { toggle: toggleDesktop }] = useDisclosure(false);
@@ -25,14 +31,13 @@ export default function Dashboard() {
     localStorage.setItem('selectedTab', selectedTab);
   }, [selectedTab]);
 
-  const { data } = useGet(`${import.meta.env.VITE_BASE_URL}/me`, {
+  const { data } = useGet<UserProps>(`${import.meta.env.VITE_BASE_URL}/me`, {
     headers: {
       Authorization: `Bearer ${authToken}`
     }
   });
 
   const userName = data ? data.USER_NAME : '';
-  const userEmail = data ? data.USER_EMAIL : '';
 
   return (
     <AppShell
@@ -90,7 +95,7 @@ export default function Dashboard() {
           <Tabs.Panel value="transaction"><UserTransaction /></Tabs.Panel>
           <Tabs.Panel h='100%' value="settings">
             <Group display='flex' h='100%'>
-              <UserSettings userName={userName} userEmail={userEmail} />
+              {data ? <UserSettings user={data} /> : <>loading...</>}
             </Group>
           </Tabs.Panel>
         </AppShell.Main>

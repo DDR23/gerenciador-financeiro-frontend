@@ -7,25 +7,34 @@ interface ErrorResponse {
   message: string;
 }
 
+interface UseGetResponse<T> {
+  data: T | null;
+  isGetting: boolean;
+  error: ErrorResponse | null
+}
+
 interface UseGetOptions extends AxiosRequestConfig {}
 
-export default function useGet(url: string, options: UseGetOptions = {}) {
-  const [data, setData] = useState<any>(null);
-  const [isGetting, setIsGetting] = useState<boolean>(true)
+export default function useGet<T>(url: string, options: UseGetOptions = {}, deps: any[] = []): UseGetResponse<T> {
+  const [data, setData] = useState<T | null>(null);
+  const [isGetting, setIsGetting] = useState<boolean>(true);
   const [error, setError] = useState<ErrorResponse | null>(null);
 
   useEffect(() => {
-    axios.get(url, options)
-      .then(res => {
-        setData(res.data)
-      })
-      .catch(err => {
-        setError(err)
-      })
-      .finally(() => {
-        setIsGetting(false)
-      })
-  }, [])
+    if (deps.every(dep => dep !== null && dep !== undefined)) {
+      setIsGetting(true);
+      axios.get(url, options)
+        .then(res => {
+          setData(res.data);
+        })
+        .catch(err => {
+          setError(err.response.data);
+        })
+        .finally(() => {
+          setIsGetting(false);
+        });
+    }
+  }, deps);
 
-  return { data, isGetting, error }
+  return { data, isGetting, error };
 }

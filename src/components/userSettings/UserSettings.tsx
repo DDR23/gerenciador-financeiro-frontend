@@ -5,7 +5,19 @@ import { useDisclosure } from "@mantine/hooks";
 import { useState } from "react";
 import ModalEditName from "../_ui/modalEditName/ModalEditName";
 
-export default function UserSettings({ userName, userEmail }: any) {
+interface UserProps {
+  USER_ID: number;
+  USER_NAME: string;
+  USER_EMAIL: string;
+}
+
+interface UserSettingsProps {
+  user: UserProps;
+}
+
+export default function UserSettings({ user }: UserSettingsProps) {
+  const token = localStorage.getItem('token')
+  const { USER_ID, USER_NAME, USER_EMAIL } = user;
   const [opened, { open, close }] = useDisclosure(false);
   const [modalContent, setModalContent] = useState<'editName' | 'editPassword' | 'deleted' | ''>('');
 
@@ -17,36 +29,36 @@ export default function UserSettings({ userName, userEmail }: any) {
   return (
     <>
       <Paper radius="md" withBorder maw="90vw" m="auto" w="30rem" p="lg">
-        <ProviderUser name={userName} size={120} />
+        <ProviderUser name={USER_NAME} size={120} />
         <Button
           onClick={() => handleOpen('editName')}
-          rightSection={<IconEdit />}
+          rightSection={<IconEdit size={20} />}
           variant="default"
           fullWidth
           mt="md"
-          fw={200}
+          fw='200'
           styles={{
             inner: {
               justifyContent: "space-between"
             }
           }}
         >
-          {userName}
+          {USER_NAME}
         </Button>
         <Button
           onClick={() => handleOpen('editPassword')}
-          rightSection={<IconEdit />}
+          rightSection={<IconEdit size={20} />}
           variant="default"
           fullWidth
           mt="md"
-          fw={200}
+          fw='200'
           styles={{
             inner: {
               justifyContent: "space-between"
             }
           }}
         >
-          {userEmail}
+          {USER_EMAIL}
         </Button>
         <Button
           onClick={() => handleOpen('deleted')}
@@ -54,23 +66,22 @@ export default function UserSettings({ userName, userEmail }: any) {
           variant="outline"
           color="#e03131"
           mt="md"
-          fw={200}
+          fw='200'
         >
-          Apager minha conta
+          Delete my account
         </Button>
       </Paper>
       {modalContent === 'editName' && (
         <Modal
           opened={opened}
           onClose={close}
-          title='Editar nome'
           // closeOnClickOutside={false}
           withCloseButton={true}
           overlayProps={{
             backgroundOpacity: 0.55,
             blur: 3
           }}>
-          <ModalEditName />
+          <ModalEditName userId={USER_ID} token={token} />
         </Modal>
       )}
       {modalContent === 'editPassword' && (
