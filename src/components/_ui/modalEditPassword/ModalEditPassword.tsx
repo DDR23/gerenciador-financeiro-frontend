@@ -6,24 +6,26 @@ import usePut from "../../../hooks/usePut";
 import { useEffect, useState } from "react";
 import { notifications } from "@mantine/notifications";
 import { IconCheck, IconCircleCheckFilled, IconX } from "@tabler/icons-react";
+import PasswordStrength from "../passwordStrength/PasswordStrength";
 
 interface UserPutValues {
-  USER_NAME?: string;
+  USER_PASSWORD?: string;
 }
 
-interface ModalEditNameProps {
+interface ModalEditPasswordProps {
   userId: number;
   token: string | null;
 }
 
-export default function ModalEditName({ userId, token }: ModalEditNameProps) {
-  const { register, handleSubmit, formState: { errors } } = useForm({
+export default function ModalEditPassword({ userId, token }: ModalEditPasswordProps) {
+  const { register, handleSubmit, formState: { errors }, watch } = useForm({
     mode: 'onChange',
     resolver: yupResolver(schemaEditName)
   });
 
+  const watchPassword = watch("USER_PASSWORD", "");
   const [posted, setPosted] = useState(false);
-  const [data, setData] = useState<UserPutValues>({ USER_NAME: '' });
+  const [data, setData] = useState<UserPutValues>({ USER_PASSWORD: '' });
   const { isUpdated, isUpdating, error } = usePut(`${import.meta.env.VITE_BASE_URL}/user/edit/${userId}`, data, posted, {
     headers: {
       Authorization: `Bearer ${token}`
@@ -96,12 +98,14 @@ export default function ModalEditName({ userId, token }: ModalEditNameProps) {
     <>
       <form onSubmit={handleSubmit(submitForm)}>
         <TextInput
-          {...register('USER_NAME')}
-          label="New name"
-          placeholder="Your new name here"
+          {...register('USER_PASSWORD')}
+          label="New password"
+          autoComplete="new-password"
+          placeholder="Your new password here"
           required
-          error={errors.USER_NAME?.message}
+          error={errors.USER_PASSWORD?.message}
         />
+        <PasswordStrength value={watchPassword || ''} />
         <Button
           type='submit'
           fullWidth

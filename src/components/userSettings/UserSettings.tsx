@@ -1,9 +1,10 @@
-import { Button, Modal, Paper } from "@mantine/core";
+import { Button, Modal, Paper, Text } from "@mantine/core";
 import ProviderUser from "../../utils/ProviderUser";
 import { IconEdit } from "@tabler/icons-react";
 import { useDisclosure } from "@mantine/hooks";
 import { useState } from "react";
 import ModalEditName from "../_ui/modalEditName/ModalEditName";
+import ModalEditPassword from "../_ui/modalEditPassword/ModalEditPassword";
 
 interface UserProps {
   USER_ID: number;
@@ -30,6 +31,7 @@ export default function UserSettings({ user }: UserSettingsProps) {
     <>
       <Paper radius="md" withBorder maw="90vw" m="auto" w="30rem" p="lg">
         <ProviderUser name={USER_NAME} size={120} />
+        <Text ta='center' mt='md'>{USER_EMAIL}</Text>
         <Button
           onClick={() => handleOpen('editName')}
           rightSection={<IconEdit size={20} />}
@@ -58,7 +60,7 @@ export default function UserSettings({ user }: UserSettingsProps) {
             }
           }}
         >
-          {USER_EMAIL}
+          ******
         </Button>
         <Button
           onClick={() => handleOpen('deleted')}
@@ -88,21 +90,19 @@ export default function UserSettings({ user }: UserSettingsProps) {
         <Modal
           opened={opened}
           onClose={close}
-          title='EDITAR SENHA'
           // closeOnClickOutside={false}
           withCloseButton={true}
           overlayProps={{
             backgroundOpacity: 0.55,
             blur: 3
           }}>
-          {/* COLOCAR MODAL AQUI */}
+          <ModalEditPassword userId={USER_ID} token={token} />
         </Modal>
       )}
       {modalContent === 'deleted' && (
         <Modal
           opened={opened}
           onClose={close}
-          title='DELETAR CONTA'
           // closeOnClickOutside={false}
           withCloseButton={true}
           overlayProps={{

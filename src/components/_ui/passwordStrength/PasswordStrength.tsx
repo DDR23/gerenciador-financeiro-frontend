@@ -2,7 +2,7 @@ import { Box, Progress, Text, Center, Group } from '@mantine/core';
 import { IconCheck, IconX } from '@tabler/icons-react';
 
 interface PasswordStrengthProps {
-  value: string; // Recebendo o valor da senha como propriedade
+  value: string;
 }
 
 function PasswordRequirement({ meets, label }: { meets: boolean; label: string }) {
