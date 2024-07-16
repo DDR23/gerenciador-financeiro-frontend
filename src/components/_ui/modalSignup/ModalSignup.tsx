@@ -2,7 +2,7 @@ import { TextInput, PasswordInput, Button, LoadingOverlay, rem } from '@mantine/
 import { SubmitHandler, useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { schemaSignup } from '../../../schemas/schemaSignup';
-import PasswordStrength from '../passwordStrength/PasswordStrength';
+import PasswordStrength, { requirements } from '../passwordStrength/PasswordStrength';
 import { useEffect, useState } from 'react';
 import { notifications } from '@mantine/notifications';
 import { IconX } from '@tabler/icons-react';
@@ -15,7 +15,20 @@ interface SignupFormValues {
   USER_PASSWORD?: string;
 }
 
-export default function ModalSignin() {
+function validatePassword(password: string): string[] {
+  const errors = [];
+  if (password.length <= 5) {
+    errors.push("Password must be at least 6 characters long");
+  }
+  requirements.forEach(requirement => {
+    if (!requirement.re.test(password)) {
+      errors.push(requirement.label);
+    }
+  });
+  return errors;
+}
+
+export default function ModalSignup() {
   const { register, handleSubmit, formState: { errors }, watch } = useForm({
     mode: 'onChange',
     resolver: yupResolver(schemaSignup)
@@ -29,6 +42,17 @@ export default function ModalSignin() {
   const { token, isPosted, isPosting, error, error409 } = usePostAuth<SignupFormValues>(`${import.meta.env.VITE_BASE_URL}/user/create`, data, posted);
 
   const submitForm: SubmitHandler<SignupFormValues> = (formData) => {
+    const passwordErrors = validatePassword(formData.USER_PASSWORD || '');
+    if (passwordErrors.length > 0) {
+      notifications.show({
+        title: 'Invalid Password',
+        message: `Please address the following issues: ${passwordErrors.join(', ')}`,
+        autoClose: 7000,
+        color: 'red',
+        icon: <IconX />,
+      });
+      return;
+    }
     setData(formData);
     setPosted(true);
   };
@@ -91,7 +115,7 @@ export default function ModalSignin() {
         />
         <TextInput
           {...register('USER_NAME')}
-          autoComplete='na'
+          autoComplete='name'
           label="Name"
           placeholder="Your Name"
           required
@@ -99,6 +123,7 @@ export default function ModalSignin() {
         />
         <PasswordInput
           {...register('USER_PASSWORD')}
+          autoComplete='new-password'
           label="Password"
           placeholder="Your password"
           required

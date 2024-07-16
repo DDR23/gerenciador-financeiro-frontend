@@ -1,4 +1,4 @@
-import { Button, LoadingOverlay, rem, TextInput } from "@mantine/core";
+import { Button, LoadingOverlay, PasswordInput, rem } from "@mantine/core";
 import { schemaEditName } from "../../../schemas/schemaEditUser";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { SubmitHandler, useForm } from "react-hook-form";
@@ -6,7 +6,7 @@ import usePut from "../../../hooks/usePut";
 import { useEffect, useState } from "react";
 import { notifications } from "@mantine/notifications";
 import { IconCheck, IconCircleCheckFilled, IconX } from "@tabler/icons-react";
-import PasswordStrength from "../passwordStrength/PasswordStrength";
+import PasswordStrength, { requirements } from "../passwordStrength/PasswordStrength";
 
 interface UserPutValues {
   USER_PASSWORD?: string;
@@ -17,8 +17,21 @@ interface ModalEditPasswordProps {
   token: string | null;
 }
 
+function validatePassword(password: string): string[] {
+  const errors = [];
+  if (password.length <= 5) {
+    errors.push("Password must be at least 6 characters long");
+  }
+  requirements.forEach(requirement => {
+    if (!requirement.re.test(password)) {
+      errors.push(requirement.label);
+    }
+  });
+  return errors;
+}
+
 export default function ModalEditPassword({ userId, token }: ModalEditPasswordProps) {
-  const { register, handleSubmit, formState: { errors }, watch } = useForm({
+  const { register, handleSubmit, watch } = useForm({
     mode: 'onChange',
     resolver: yupResolver(schemaEditName)
   });
@@ -33,7 +46,19 @@ export default function ModalEditPassword({ userId, token }: ModalEditPasswordPr
   });
 
   const submitForm: SubmitHandler<UserPutValues> = (formData) => {
-    console.log(formData)
+    const passwordErrors = validatePassword(formData.USER_PASSWORD || '');
+    if (passwordErrors.length > 0) {
+      notifications.show({
+        title: 'Invalid Password',
+        message: `Please address the following issues: ${passwordErrors.join(', ')}`,
+        autoClose: 7000,
+        color: 'red',
+        icon: <IconX />,
+      });
+      return;
+    }
+    console.log('data', data)
+    console.log('formData', formData)
     setData(formData);
     setPosted(true);
   };
@@ -97,13 +122,11 @@ export default function ModalEditPassword({ userId, token }: ModalEditPasswordPr
   return (
     <>
       <form onSubmit={handleSubmit(submitForm)}>
-        <TextInput
+        <PasswordInput
           {...register('USER_PASSWORD')}
           label="New password"
-          autoComplete="new-password"
-          placeholder="Your new password here"
-          required
-          error={errors.USER_PASSWORD?.message}
+          autoComplete="password"
+          placeholder="Your new password"
         />
         <PasswordStrength value={watchPassword || ''} />
         <Button
