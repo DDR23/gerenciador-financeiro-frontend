@@ -1,4 +1,4 @@
-import { TextInput, PasswordInput, Button, LoadingOverlay, rem, Text } from '@mantine/core';
+import { TextInput, PasswordInput, Button, LoadingOverlay, Text } from '@mantine/core';
 import { schemaSignin } from '../../../schemas/schemaSignin';
 import { SubmitHandler, useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
@@ -42,18 +42,14 @@ export default function ModalSignin() {
 
   if (isPosting) {
     return (
-      <>
-        <div style={{ padding: rem(100) }}>
-          <LoadingOverlay
-            visible={true}
-            zIndex={1000}
-            overlayProps={{
-              radius: "sm",
-              blur: 2
-            }}
-          />
-        </div>
-      </>
+      <LoadingOverlay
+        visible={true}
+        zIndex={1000}
+        overlayProps={{
+          radius: "sm",
+          blur: 2
+        }}
+      />
     )
   }
 
@@ -67,7 +63,7 @@ export default function ModalSignin() {
           placeholder="your@email.com"
           required
           error={errors.USER_EMAIL?.message}
-          />
+        />
         <PasswordInput
           {...register('USER_PASSWORD')}
           autoComplete='current-password'
@@ -78,10 +74,10 @@ export default function ModalSignin() {
         />
         {error && (
           <Text c="red" size="sm" ta="center" mt={10}>
-          {error.message}
+            {error.message}
           </Text>
         )}
-        <Button type='submit' fullWidth mt="xl">
+        <Button type='submit' fullWidth mt="xl" fw={500}>
           Sign in
         </Button>
       </form>

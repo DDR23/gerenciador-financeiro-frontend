@@ -82,7 +82,7 @@ export default function Dashboard() {
               fullWidth
               variant="outline"
               color="#e03131"
-              fw='200'
+              fw={500}
             >
               Logout
             </Button>

@@ -20,16 +20,16 @@ export default function Home() {
         <div className="home__content" >
           <Image src='coin.png' />
           <Title order={1}>Manage <Text span c="green" inherit>Your Finance</Text> with Ease</Title>
-          <Title fw={700} order={2}>Effortlessly track your bills, income, and expenses. <Text span c="green" inherit fw='700'>Take control of your money</Text> with simplicity and clarity.</Title>
+          <Title fw={500} order={2}>Effortlessly track your bills, income, and expenses. <Text span c="green" inherit fw='500'>Take control of your money</Text> with simplicity and clarity.</Title>
           <Group className="home__content--btn">
             <Button
-              fw={700}
+              fw={500}
               onClick={() => handleOpen('login')}
             >
               Login
             </Button>
             <Button
-              fw={700}
+              fw={500}
               onClick={() => handleOpen('signup')}
               variant="outline"
             >
@@ -40,9 +40,7 @@ export default function Home() {
             <Modal
               opened={opened}
               onClose={close}
-              title='Welcome to Your Finance'
-              // closeOnClickOutside={false}
-              withCloseButton={true}
+              withCloseButton={false}
               overlayProps={{
                 backgroundOpacity: 0.55,
                 blur: 3
@@ -60,9 +58,7 @@ export default function Home() {
             <Modal
               opened={opened}
               onClose={close}
-              title='Welcome to Your Finance'
-              // closeOnClickOutside={false}
-              withCloseButton={true}
+              withCloseButton={false}
               overlayProps={{
                 backgroundOpacity: 0.55,
                 blur: 3

@@ -20,7 +20,7 @@ export const AuthProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
     setIsAuthenticated(true);
     localStorage.setItem('isAuthenticated', 'true');
     notifications.show({
-      title: 'Success',
+      title: 'Success 😃',
       message: 'Logged in successfully.',
       autoClose: 7000,
       color: 'green',
@@ -34,9 +34,8 @@ export const AuthProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
     localStorage.removeItem('tokenAdmin');
     localStorage.removeItem('token');
     localStorage.removeItem('selectedTab');
-    localStorage.removeItem('avatar-color');
     notifications.show({
-      title: 'Bye',
+      title: 'Bye 😭',
       message: 'We look forward to seeing you soon',
       autoClose: 7000,
       color: 'green',

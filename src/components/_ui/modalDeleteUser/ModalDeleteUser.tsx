@@ -1,14 +1,14 @@
-import { Button, LoadingOverlay, Stack, Text, TextInput } from "@mantine/core";
+import { Button, LoadingOverlay, Stack, Text } from "@mantine/core";
 import { schemaEditUser } from "../../../schemas/schemaEditUser";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { SubmitHandler, useForm } from "react-hook-form";
-import usePut from "../../../hooks/usePut";
 import { useEffect, useState } from "react";
 import { notifications } from "@mantine/notifications";
 import { IconCheck, IconCircleCheckFilled, IconX } from "@tabler/icons-react";
+import useDelete from "../../../hooks/useDelete";
 
 interface UserPutValues {
-  USER_NAME?: string;
+  USER_DELETED?: boolean;
 }
 
 interface ModalEditNameProps {
@@ -16,28 +16,26 @@ interface ModalEditNameProps {
   token: string | null;
 }
 
-export default function ModalEditName({ userId, token }: ModalEditNameProps) {
-  const { register, handleSubmit, formState: { errors } } = useForm({
+export default function ModalDeleteUser({ userId, token }: ModalEditNameProps) {
+  const { handleSubmit } = useForm({
     mode: 'onChange',
     resolver: yupResolver(schemaEditUser)
   });
 
-  const [posted, setPosted] = useState(false);
-  const [data, setData] = useState<UserPutValues>({ USER_NAME: '' });
-  const { isUpdated, isUpdating, error } = usePut(`${import.meta.env.VITE_BASE_URL}/user/edit/${userId}`, data, posted, {
+  const [isDelete, setIsDelete] = useState(false);
+  const { isDeleted, isDeleting, error } = useDelete(`${import.meta.env.VITE_BASE_URL}/user/delete/${userId}`, isDelete, {
     headers: {
       Authorization: `Bearer ${token}`
     }
   });
 
-  const submitForm: SubmitHandler<UserPutValues> = (formData) => {
-    setData(formData);
-    setPosted(true);
+  const submitForm: SubmitHandler<UserPutValues> = () => {
+    setIsDelete(true);
   };
 
   useEffect(() => {
     if (error) {
-      setPosted(false)
+      setIsDelete(false)
       notifications.show({
         title: error?.error,
         message: error?.message,
@@ -46,11 +44,11 @@ export default function ModalEditName({ userId, token }: ModalEditNameProps) {
         icon: <IconX />,
       })
     }
-    if (isUpdated) {
-      setPosted(false)
+    if (isDeleted) {
+      setIsDelete(false)
       notifications.show({
-        title: 'Success',
-        message: 'Name changed successfully.',
+        title: 'Account Deactivated Successfully',
+        message: 'Your account has been successfully deactivated. You can reactivate it anytime!',
         autoClose: 2000,
         color: 'green',
         icon: <IconCheck />,
@@ -59,18 +57,19 @@ export default function ModalEditName({ userId, token }: ModalEditNameProps) {
         }
       })
     }
-  }, [error, isUpdated]);
+  }, [error, isDeleted]);
 
-  if (isUpdated) {
+  if (isDeleted) {
     return (
       <Stack align="center" gap={0}>
         <IconCircleCheckFilled color="green" size={100} />
-        <Text ta='center' c='dimmed'>Name changed successfully</Text>
+        <Text ta='center'>Account Deactivated Successfully</Text>
+        <Text ta='center' c='dimmed'>Your account has been successfully deactivated. You can reactivate it anytime!</Text>
       </Stack>
     )
   }
 
-  if (isUpdating) {
+  if (isDeleting) {
     return (
       <LoadingOverlay
         visible={true}
@@ -86,20 +85,18 @@ export default function ModalEditName({ userId, token }: ModalEditNameProps) {
   return (
     <>
       <form onSubmit={handleSubmit(submitForm)}>
-        <TextInput
-          {...register('USER_NAME')}
-          label="New name"
-          placeholder="Your new name here"
-          required
-          error={errors.USER_NAME?.message}
-        />
+        <Stack align="center" gap={0}>
+          <Text ta='center'>Temporarily Deactivate Account?</Text>
+          <Text ta='center' size="sm" c='dimmed'>Temporarily deactivating your account does not delete it, you can reactivate it at any time!</Text>
+        </Stack>
         <Button
           type='submit'
           fullWidth
-          mt="xl"
+          mt="md"
           fw={500}
+          color='red'
         >
-          Save
+          Deactivate my account
         </Button>
       </form>
     </>

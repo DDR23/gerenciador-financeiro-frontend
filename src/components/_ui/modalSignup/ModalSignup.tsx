@@ -1,4 +1,4 @@
-import { TextInput, PasswordInput, Button, LoadingOverlay, rem } from '@mantine/core';
+import { TextInput, PasswordInput, Button, LoadingOverlay } from '@mantine/core';
 import { SubmitHandler, useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { schemaSignup } from '../../../schemas/schemaSignup';
@@ -46,7 +46,7 @@ export default function ModalSignup() {
     if (passwordErrors.length > 0) {
       notifications.show({
         title: 'Invalid Password',
-        message: `Please address the following issues: ${passwordErrors.join(', ')}`,
+        message: `${passwordErrors.join(', ')}`,
         autoClose: 7000,
         color: 'red',
         icon: <IconX />,
@@ -87,18 +87,14 @@ export default function ModalSignup() {
 
   if (isPosting) {
     return (
-      <>
-        <div style={{ padding: rem(100) }}>
-          <LoadingOverlay
-            visible={true}
-            zIndex={1000}
-            overlayProps={{
-              radius: "sm",
-              blur: 2
-            }}
-          />
-        </div>
-      </>
+      <LoadingOverlay
+        visible={true}
+        zIndex={1000}
+        overlayProps={{
+          radius: "sm",
+          blur: 2
+        }}
+      />
     )
   }
 
@@ -130,7 +126,7 @@ export default function ModalSignup() {
           error={errors.USER_PASSWORD && errors.USER_PASSWORD.type === "required" ? errors.USER_PASSWORD.message : undefined}
         />
         <PasswordStrength value={watchPassword} />
-        <Button type='submit' fullWidth mt="xl">
+        <Button type='submit' fullWidth mt="xl" fw={500}>
           Register
         </Button>
       </form>

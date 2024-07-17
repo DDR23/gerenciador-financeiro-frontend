@@ -1,10 +1,11 @@
 import { Button, Modal, Paper, Text } from "@mantine/core";
 import ProviderUser from "../../utils/ProviderUser";
-import { IconEdit } from "@tabler/icons-react";
+import { IconEdit, IconKey, IconTrash } from "@tabler/icons-react";
 import { useDisclosure } from "@mantine/hooks";
 import { useState } from "react";
 import ModalEditName from "../_ui/modalEditName/ModalEditName";
 import ModalEditPassword from "../_ui/modalEditPassword/ModalEditPassword";
+import ModalDeleteUser from "../_ui/modalDeleteUser/ModalDeleteUser";
 
 interface UserProps {
   USER_ID: number;
@@ -31,7 +32,8 @@ export default function UserSettings({ user }: UserSettingsProps) {
     <>
       <Paper radius="md" withBorder maw="90vw" m="auto" w="30rem" p="lg">
         <ProviderUser name={USER_NAME} size={120} />
-        <Text ta='center' mt='md'>{USER_EMAIL}</Text>
+        <Text ta='center' mt='md'>{USER_NAME}</Text>
+        <Text c="dimmed" ta='center' size="sm" >{USER_EMAIL}</Text>
         <Button
           onClick={() => handleOpen('editName')}
           rightSection={<IconEdit size={20} />}
@@ -45,13 +47,13 @@ export default function UserSettings({ user }: UserSettingsProps) {
             }
           }}
         >
-          {USER_NAME}
+          Edit name
         </Button>
         <Button
           onClick={() => handleOpen('editPassword')}
-          rightSection={<IconEdit size={20} />}
-          variant="default"
+          rightSection={<IconKey size={20} />}
           fullWidth
+          variant="default"
           mt="md"
           fw='200'
           styles={{
@@ -60,15 +62,21 @@ export default function UserSettings({ user }: UserSettingsProps) {
             }
           }}
         >
-          ******
+          Edit password
         </Button>
         <Button
           onClick={() => handleOpen('deleted')}
+          rightSection={<IconTrash size={20} />}
           fullWidth
           variant="outline"
           color="#e03131"
           mt="md"
           fw='200'
+          styles={{
+            inner: {
+              justifyContent: "space-between"
+            }
+          }}
         >
           Delete my account
         </Button>
@@ -77,8 +85,7 @@ export default function UserSettings({ user }: UserSettingsProps) {
         <Modal
           opened={opened}
           onClose={close}
-          // closeOnClickOutside={false}
-          withCloseButton={true}
+          withCloseButton={false}
           overlayProps={{
             backgroundOpacity: 0.55,
             blur: 3
@@ -90,26 +97,24 @@ export default function UserSettings({ user }: UserSettingsProps) {
         <Modal
           opened={opened}
           onClose={close}
-          // closeOnClickOutside={false}
-          withCloseButton={true}
+          withCloseButton={false}
           overlayProps={{
             backgroundOpacity: 0.55,
             blur: 3
           }}>
-          <ModalEditPassword userId={USER_ID} token={token} />
+          <ModalEditPassword userEmail={USER_EMAIL} userId={USER_ID} token={token} />
         </Modal>
       )}
       {modalContent === 'deleted' && (
         <Modal
           opened={opened}
           onClose={close}
-          // closeOnClickOutside={false}
-          withCloseButton={true}
+          withCloseButton={false}
           overlayProps={{
             backgroundOpacity: 0.55,
             blur: 3
           }}>
-          {/* COLOCAR MODAL AQUI */}
+          <ModalDeleteUser userId={USER_ID} token={token} />
         </Modal>
       )}
     </>
