@@ -13,7 +13,7 @@ interface SigninFormValues {
 
 export default function ModalSignin() {
   const { login } = useAuth();
-  const { register, handleSubmit, formState: { errors } } = useForm({
+  const { register, handleSubmit } = useForm({
     mode: 'onChange',
     resolver: yupResolver(schemaSignin)
   })
@@ -34,8 +34,13 @@ export default function ModalSignin() {
     }
     if (isPosted) {
       setPosted(false)
-      localStorage.setItem('token', token?.token as string)
-      localStorage.setItem('tokenAdmin', token?.tokenAdmin as string)
+      const tokenUser = token?.token as string;
+      localStorage.setItem('tokenUser', tokenUser)
+      const tokenAdmin = token?.tokenAdmin as string;
+      if (tokenAdmin) {
+        localStorage.setItem('tokenAdmin', tokenAdmin)
+      }
+      
       login();
     }
   }, [error, isPosted]);
@@ -58,19 +63,13 @@ export default function ModalSignin() {
       <form onSubmit={handleSubmit(submitForm)}>
         <TextInput
           {...register('USER_EMAIL')}
-          autoComplete='username'
           label="Email"
           placeholder="your@email.com"
-          required
-          error={errors.USER_EMAIL?.message}
         />
         <PasswordInput
           {...register('USER_PASSWORD')}
-          autoComplete='current-password'
           label="Password"
           placeholder="Your password"
-          required
-          error={errors.USER_PASSWORD?.message}
         />
         {error && (
           <Text c="red" size="sm" ta="center" mt={10}>

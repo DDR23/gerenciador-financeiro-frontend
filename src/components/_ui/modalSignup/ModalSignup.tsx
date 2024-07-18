@@ -106,24 +106,18 @@ export default function ModalSignup() {
           autoComplete='username'
           label="Email"
           placeholder="your@email.com"
-          required
           error={errors.USER_EMAIL?.message}
         />
         <TextInput
           {...register('USER_NAME')}
-          autoComplete='name'
           label="Name"
           placeholder="Your Name"
-          required
           error={errors.USER_NAME?.message}
         />
         <PasswordInput
           {...register('USER_PASSWORD')}
-          autoComplete='new-password'
           label="Password"
           placeholder="Your password"
-          required
-          error={errors.USER_PASSWORD && errors.USER_PASSWORD.type === "required" ? errors.USER_PASSWORD.message : undefined}
         />
         <PasswordStrength value={watchPassword} />
         <Button type='submit' fullWidth mt="xl" fw={500}>
