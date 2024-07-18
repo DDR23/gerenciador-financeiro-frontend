@@ -81,7 +81,7 @@ export default function Dashboard() {
                       </Group>
                     </Menu.Target>
                     <Menu.Dropdown>
-                      <Menu.Item variant='outline' c="red" mr='lg' leftSection={<IconLogout size={20} />} onClick={() => logout()} >Sair</Menu.Item>
+                      <Menu.Item variant='outline' c="#e03131" mr='lg' leftSection={<IconLogout size={20} />} onClick={() => logout()} >Sair</Menu.Item>
                     </Menu.Dropdown>
                   </Menu>
                 </Group>
@@ -104,7 +104,6 @@ export default function Dashboard() {
                   fullWidth
                   variant="outline"
                   color="#e03131"
-                  c="red"
                   fw={500}
                 >
                   Logout
