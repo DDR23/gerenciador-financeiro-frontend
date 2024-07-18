@@ -43,8 +43,6 @@ export default function Dashboard() {
   const userName = data ? data.USER_NAME : '';
   const deactivedAccount = data ? data.USER_DELETED : false;
 
-
-
   return (
     <>
       {deactivedAccount ? (
@@ -84,12 +82,12 @@ export default function Dashboard() {
                       <Group>
                         <Text c="dimmed" size="sm" inline >Helo, {userName}</Text>
                         <UnstyledButton>
-                          <ProviderUser name='teste' size='2.3rem' />
+                          <ProviderUser name={userName} size='2.3rem' />
                         </UnstyledButton>
                       </Group>
                     </Menu.Target>
                     <Menu.Dropdown>
-                      <Menu.Item mr='lg' leftSection={<IconLogout size={20} />} onClick={() => logout()} >Sair</Menu.Item>
+                      <Menu.Item variant='outline' c="red" mr='lg' leftSection={<IconLogout size={20} />} onClick={() => logout()} >Sair</Menu.Item>
                     </Menu.Dropdown>
                   </Menu>
                 </Group>
@@ -99,19 +97,20 @@ export default function Dashboard() {
               justifyContent: 'space-between'
             }}>
               <Tabs.List>
-                <Tabs.Tab value="dashboard" leftSection={<IconHome />}>Dashboard</Tabs.Tab>
-                <Tabs.Tab value="goal" leftSection={<IconTargetArrow />}>Goals</Tabs.Tab>
-                <Tabs.Tab value="category" leftSection={<IconCategory2 />}>Category</Tabs.Tab>
-                <Tabs.Tab value="transaction" leftSection={<IconSwitchHorizontal />}>Transaction</Tabs.Tab>
-                <Tabs.Tab value="settings" leftSection={<IconSettings />}>Settings</Tabs.Tab>
+                <Tabs.Tab value="dashboard" leftSection={<IconHome size={20} />}>Dashboard</Tabs.Tab>
+                <Tabs.Tab value="goal" leftSection={<IconTargetArrow size={20} />}>Goals</Tabs.Tab>
+                <Tabs.Tab value="category" leftSection={<IconCategory2 size={20} />}>Category</Tabs.Tab>
+                <Tabs.Tab value="transaction" leftSection={<IconSwitchHorizontal size={20} />}>Transaction</Tabs.Tab>
+                <Tabs.Tab value="settings" leftSection={<IconSettings size={20} />}>Settings</Tabs.Tab>
               </Tabs.List>
               <Group >
                 <Button
                   onClick={() => logout()}
-                  leftSection={<IconLogout />}
+                  leftSection={<IconLogout size={20} />}
                   fullWidth
                   variant="outline"
                   color="#e03131"
+                  c="red"
                   fw={500}
                 >
                   Logout
