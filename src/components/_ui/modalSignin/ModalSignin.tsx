@@ -34,8 +34,7 @@ export default function ModalSignin() {
     }
     if (isPosted) {
       setPosted(false)
-      const tokenUser = token?.token as string;
-      localStorage.setItem('tokenUser', tokenUser)
+      localStorage.setItem('tokenUser', token?.token as string)
       const tokenAdmin = token?.tokenAdmin as string;
       if (tokenAdmin) {
         localStorage.setItem('tokenAdmin', tokenAdmin)
