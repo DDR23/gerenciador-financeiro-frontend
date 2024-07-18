@@ -1,4 +1,4 @@
-import { AppShell, Button, Center, Group, Image, LoadingOverlay, Menu, Stack, Text, UnstyledButton } from "@mantine/core";
+import { AppShell, Button, Center, Group, Image, Menu, Stack, Text, UnstyledButton } from "@mantine/core";
 import ProviderUser from "../../utils/ProviderUser";
 import usePut from "../../hooks/usePut";
 import { useEffect, useState } from "react";
@@ -8,6 +8,7 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import { notifications } from "@mantine/notifications";
 import { IconCheck, IconCircleCheckFilled, IconLogout, IconX } from "@tabler/icons-react";
 import { useAuth } from "../../contexts/AuthContext";
+import Loading from "../../components/_ui/loading/Loading";
 
 interface UserProps {
   USER_ID: number;
@@ -74,14 +75,7 @@ export default function PageDeactived({ data, token }: PageDeactivedProps) {
 
   if (isUpdating) {
     return (
-      <LoadingOverlay
-        visible={true}
-        zIndex={1000}
-        overlayProps={{
-          radius: "sm",
-          blur: 2
-        }}
-      />
+      <Loading />
     )
   }
 

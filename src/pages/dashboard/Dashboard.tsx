@@ -1,4 +1,4 @@
-import { AppShell, Burger, Button, Group, Image, LoadingOverlay, Menu, Tabs, Text, UnstyledButton } from "@mantine/core";
+import { AppShell, Burger, Button, Group, Image, Menu, Tabs, Text, UnstyledButton } from "@mantine/core";
 import { useAuth } from "../../contexts/AuthContext"
 import { IconCategory2, IconHome, IconLogout, IconSettings, IconSwitchHorizontal, IconTargetArrow } from "@tabler/icons-react";
 import { useDisclosure } from "@mantine/hooks";
@@ -11,6 +11,7 @@ import UserSettings from "../../components/userSettings/UserSettings";
 import { useEffect, useState } from "react";
 import useGet from "../../hooks/useGet";
 import PageDeactived from "../deactived/Deactived";
+import Loading from "../../components/_ui/loading/Loading";
 
 interface UserProps {
   USER_ID: number;
@@ -47,14 +48,7 @@ export default function Dashboard() {
     <>
       {deactivedAccount ? (
         <>
-          {data ? <PageDeactived data={data} token={authToken} /> : <LoadingOverlay
-            visible={true}
-            zIndex={1000}
-            overlayProps={{
-              radius: "sm",
-              blur: 2
-            }}
-          />}
+          {data ? <PageDeactived data={data} token={authToken} /> : <Loading />}
         </>
       ) : (
         <AppShell
@@ -124,14 +118,7 @@ export default function Dashboard() {
               <Tabs.Panel value="transaction"><UserTransaction /></Tabs.Panel>
               <Tabs.Panel h='100%' value="settings">
                 <Group display='flex' h='100%'>
-                  {data ? <UserSettings user={data} /> : <LoadingOverlay
-                    visible={true}
-                    zIndex={1000}
-                    overlayProps={{
-                      radius: "sm",
-                      blur: 2
-                    }}
-                  />}
+                  {data ? <UserSettings user={data} /> : <Loading />}
                 </Group>
               </Tabs.Panel>
             </AppShell.Main>

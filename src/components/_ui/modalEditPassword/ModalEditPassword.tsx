@@ -1,4 +1,4 @@
-import { Button, LoadingOverlay, PasswordInput, Stack, Text, TextInput } from "@mantine/core";
+import { Button, PasswordInput, Stack, Text, TextInput } from "@mantine/core";
 import { schemaEditUser } from "../../../schemas/schemaEditUser";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { SubmitHandler, useForm } from "react-hook-form";
@@ -7,6 +7,7 @@ import { useEffect, useState } from "react";
 import { notifications } from "@mantine/notifications";
 import { IconCheck, IconCircleCheckFilled, IconX } from "@tabler/icons-react";
 import PasswordStrength, { requirements } from "../passwordStrength/PasswordStrength";
+import Loading from "../loading/Loading";
 
 interface UserPutValues {
   USER_EMAIL?: string;
@@ -100,14 +101,7 @@ export default function ModalEditPassword({ userId, token, userEmail }: ModalEdi
 
   if (isUpdating) {
     return (
-      <LoadingOverlay
-        visible={true}
-        zIndex={1000}
-        overlayProps={{
-          radius: "sm",
-          blur: 2
-        }}
-      />
+      <Loading />
     )
   }
 

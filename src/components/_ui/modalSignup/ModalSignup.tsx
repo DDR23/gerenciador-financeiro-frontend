@@ -1,4 +1,4 @@
-import { TextInput, PasswordInput, Button, LoadingOverlay } from '@mantine/core';
+import { TextInput, PasswordInput, Button } from '@mantine/core';
 import { SubmitHandler, useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { schemaSignup } from '../../../schemas/schemaSignup';
@@ -8,6 +8,7 @@ import { notifications } from '@mantine/notifications';
 import { IconX } from '@tabler/icons-react';
 import usePostAuth from '../../../hooks/usePostAuth';
 import { useAuth } from '../../../contexts/AuthContext';
+import Loading from '../loading/Loading';
 
 interface SignupFormValues {
   USER_EMAIL?: string;
@@ -87,14 +88,7 @@ export default function ModalSignup() {
 
   if (isPosting) {
     return (
-      <LoadingOverlay
-        visible={true}
-        zIndex={1000}
-        overlayProps={{
-          radius: "sm",
-          blur: 2
-        }}
-      />
+      <Loading />
     )
   }
 

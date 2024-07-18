@@ -1,4 +1,4 @@
-import { Button, LoadingOverlay, Stack, Text } from "@mantine/core";
+import { Button, Stack, Text } from "@mantine/core";
 import { schemaEditUser } from "../../../schemas/schemaEditUser";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { SubmitHandler, useForm } from "react-hook-form";
@@ -6,6 +6,7 @@ import { useEffect, useState } from "react";
 import { notifications } from "@mantine/notifications";
 import { IconCheck, IconCircleCheckFilled, IconX } from "@tabler/icons-react";
 import useDelete from "../../../hooks/useDelete";
+import Loading from "../loading/Loading";
 
 interface UserPutValues {
   USER_DELETED?: boolean;
@@ -71,14 +72,7 @@ export default function ModalDeleteUser({ userId, token }: ModalEditNameProps) {
 
   if (isDeleting) {
     return (
-      <LoadingOverlay
-        visible={true}
-        zIndex={1000}
-        overlayProps={{
-          radius: "sm",
-          blur: 2
-        }}
-      />
+      <Loading />
     )
   }
 
