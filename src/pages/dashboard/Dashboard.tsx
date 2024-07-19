@@ -80,7 +80,7 @@ export default function Dashboard() {
                       </Group>
                     </Menu.Target>
                     <Menu.Dropdown>
-                      <Menu.Item variant='outline' c="#e03131" mr='lg' leftSection={<IconLogout size={20} />} onClick={() => logout()} >Sair</Menu.Item>
+                      <Menu.Item c="#e03131" mr='lg' leftSection={<IconLogout size={20} />} onClick={() => logout()} >Sair</Menu.Item>
                     </Menu.Dropdown>
                   </Menu>
                 </Group>
@@ -110,7 +110,7 @@ export default function Dashboard() {
             </AppShell.Navbar>
             <AppShell.Main w='100vw' h='100vh'>
               <Tabs.Panel value="dashboard"><UserPanel /></Tabs.Panel>
-              <Tabs.Panel value="goals"><UserGoal /></Tabs.Panel>
+              <Tabs.Panel h='100%' value="goals"><UserGoal /></Tabs.Panel>
               <Tabs.Panel value="transactions"><UserTransaction /></Tabs.Panel>
               <Tabs.Panel h='100%' value="settings">
                 <Group display='flex' h='100%'>
