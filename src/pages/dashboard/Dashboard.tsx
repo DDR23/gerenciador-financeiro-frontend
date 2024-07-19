@@ -1,11 +1,10 @@
 import { AppShell, Burger, Button, Group, Image, Menu, Tabs, Text, UnstyledButton } from "@mantine/core";
 import { useAuth } from "../../contexts/AuthContext"
-import { IconCategory2, IconHome, IconLogout, IconSettings, IconSwitchHorizontal, IconTargetArrow } from "@tabler/icons-react";
+import { IconHome, IconLogout, IconSettings, IconSwitchHorizontal, IconTargetArrow } from "@tabler/icons-react";
 import { useDisclosure } from "@mantine/hooks";
 import ProviderUser from "../../utils/ProviderUser";
 import UserPanel from "../../components/userPanel/UserPanel";
 import UserGoal from "../../components/userGoal/UserGoal";
-import UserCategory from "../../components/userCategory/UserCategory";
 import UserTransaction from "../../components/userTransaction/UserTransaction";
 import UserSettings from "../../components/userSettings/UserSettings";
 import { useEffect, useState } from "react";
@@ -92,9 +91,8 @@ export default function Dashboard() {
             }}>
               <Tabs.List>
                 <Tabs.Tab value="dashboard" leftSection={<IconHome size={20} />}>Dashboard</Tabs.Tab>
-                <Tabs.Tab value="goal" leftSection={<IconTargetArrow size={20} />}>Goals</Tabs.Tab>
-                <Tabs.Tab value="category" leftSection={<IconCategory2 size={20} />}>Category</Tabs.Tab>
-                <Tabs.Tab value="transaction" leftSection={<IconSwitchHorizontal size={20} />}>Transaction</Tabs.Tab>
+                <Tabs.Tab value="goals" leftSection={<IconTargetArrow size={20} />}>Goals</Tabs.Tab>
+                <Tabs.Tab value="transactions" leftSection={<IconSwitchHorizontal size={20} />}>Transactions</Tabs.Tab>
                 <Tabs.Tab value="settings" leftSection={<IconSettings size={20} />}>Settings</Tabs.Tab>
               </Tabs.List>
               <Group >
@@ -112,9 +110,8 @@ export default function Dashboard() {
             </AppShell.Navbar>
             <AppShell.Main w='100vw' h='100vh'>
               <Tabs.Panel value="dashboard"><UserPanel /></Tabs.Panel>
-              <Tabs.Panel value="goal"><UserGoal /></Tabs.Panel>
-              <Tabs.Panel value="category"><UserCategory /></Tabs.Panel>
-              <Tabs.Panel value="transaction"><UserTransaction /></Tabs.Panel>
+              <Tabs.Panel value="goals"><UserGoal /></Tabs.Panel>
+              <Tabs.Panel value="transactions"><UserTransaction /></Tabs.Panel>
               <Tabs.Panel h='100%' value="settings">
                 <Group display='flex' h='100%'>
                   {data ? <UserSettings user={data} /> : <Loading />}
