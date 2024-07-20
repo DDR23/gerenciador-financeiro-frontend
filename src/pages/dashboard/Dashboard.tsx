@@ -40,6 +40,7 @@ export default function Dashboard() {
     }
   });
 
+  const userId = data ? data.USER_ID : null;
   const userName = data ? data.USER_NAME : '';
   const deactivedAccount = data ? data.USER_DELETED : false;
 
@@ -109,13 +110,17 @@ export default function Dashboard() {
               </Group>
             </AppShell.Navbar>
             <AppShell.Main w='100vw' h='100vh'>
-              <Tabs.Panel value="dashboard"><UserPanel /></Tabs.Panel>
-              <Tabs.Panel h='100%' value="goals"><UserGoal /></Tabs.Panel>
-              <Tabs.Panel value="transactions"><UserTransaction /></Tabs.Panel>
-              <Tabs.Panel h='100%' value="settings">
-                <Group display='flex' h='100%'>
-                  {data ? <UserSettings user={data} /> : <Loading />}
-                </Group>
+              <Tabs.Panel value="dashboard">
+                <UserPanel />
+              </Tabs.Panel>
+              <Tabs.Panel value="goals" h='100%'>
+                {data ? <UserGoal userId={userId} /> : <Loading />}
+              </Tabs.Panel>
+              <Tabs.Panel value="transactions">
+                <UserTransaction />
+              </Tabs.Panel>
+              <Tabs.Panel value="settings" h='100%'>
+                <Group display='flex' h='100%'>{data ? <UserSettings user={data} /> : <Loading />}</Group>
               </Tabs.Panel>
             </AppShell.Main>
           </Tabs>

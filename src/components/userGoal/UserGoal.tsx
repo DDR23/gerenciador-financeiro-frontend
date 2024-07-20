@@ -1,55 +1,41 @@
 import { Group, Menu, Paper, Stack, Table, Text, UnstyledButton } from '@mantine/core';
 import { IconDotsVertical, IconEdit, IconTrash } from '@tabler/icons-react';
-
-const data = [
-  {
-    title: 'Foundation',
-    amount: 1951,
-    deadline: 1951
-
-  },
-  {
-    title: 'Frankenstein',
-    amount: 1818,
-    deadline: 1818
-
-  },
-  {
-    title: 'Solaris',
-    amount: 1961,
-    deadline: 1961
-
-  },
-  {
-    title: 'Dune',
-    amount: 1965,
-    deadline: 1965
-
-  },
-  {
-    title: 'The Left Hand of Darkness',
-    amount: 1969,
-    deadline: 1969
-
-  },
-  {
-    title: 'A Scanner Darkly',
-    amount: 1977,
-    deadline: 1977
-
-  },
-];
+import useGet from '../../hooks/useGet';
+import Loading from '../_ui/loading/Loading';
 
 // TODO FAZER REQUISIÇÃO DE METAS E MELHORAR LAYOUT DA PAGINA
 
+interface GoalProps {
+  FK_USER_ID: number;
+  GOAL_AMOUNT: number;
+  GOAL_DEADLINE: string;
+  GOAL_ID: number;
+  GOAL_NAME: string;
+}
 
-export default function UserGoal() {
+interface UserGoalProps {
+  userId: number | null
+}
+
+export default function UserGoal({ userId }: UserGoalProps) {
+  const authToken = localStorage.getItem('token')
+
+  const { data } = useGet<GoalProps[]>(`${import.meta.env.VITE_BASE_URL}/goal/user/${userId}`, {
+    headers: {
+      Authorization: `Bearer ${authToken}`
+    }
+  })
+
+  if (!data) {
+    return <Loading />;
+  }
+
   const rows = data.map((row) => {
     return (
-      <Table.Tr key={row.title}>
-        <Table.Td>{row.title}</Table.Td>
-        <Table.Td ta='end'>{row.amount}</Table.Td>
-        <Table.Td ta='end'>{row.deadline}</Table.Td>
+      <Table.Tr key={row.GOAL_ID}>
+        <Table.Td>{row.GOAL_NAME}</Table.Td>
+        <Table.Td ta='end'>{row.GOAL_AMOUNT}</Table.Td>
+        <Table.Td ta='end'>{row.GOAL_DEADLINE}</Table.Td>
         <Table.Td ta='end'>
           <Group justify='end'>
             <Menu shadow="md">
@@ -77,17 +63,31 @@ export default function UserGoal() {
     <Stack align='center' justify='center' pt='xl'>
       <Text size='lg'>Minhas metas</Text>
       <Paper withBorder radius='md' style={{ overflow: 'hidden' }}>
-        <Table verticalSpacing="xs" w='700' striped highlightOnHover withRowBorders={false} >
-          <Table.Thead>
-            <Table.Tr c='green' >
-              <Table.Th>Name</Table.Th>
-              <Table.Th ta='end'>Amount</Table.Th>
-              <Table.Th ta='end'>Deadline</Table.Th>
-              <Table.Th ta='end'></Table.Th>
-            </Table.Tr>
-          </Table.Thead>
-          <Table.Tbody>{rows}</Table.Tbody>
-        </Table>
+        {data && data.length > 0 ? (
+          <Table verticalSpacing="xs" w='700' striped highlightOnHover withRowBorders={false} >
+            <Table.Thead>
+              <Table.Tr c='green' >
+                <Table.Th>Name</Table.Th>
+                <Table.Th ta='end'>Amount</Table.Th>
+                <Table.Th ta='end'>Deadline</Table.Th>
+                <Table.Th ta='end'></Table.Th>
+              </Table.Tr>
+            </Table.Thead>
+            <Table.Tbody>{rows}</Table.Tbody>
+          </Table>
+        ) : (
+          <Table verticalSpacing="xs" w='700' striped highlightOnHover withRowBorders={false} ta='center'>
+            <Table.Thead>
+              <Table.Tr c='green' >
+              </Table.Tr>
+            </Table.Thead>
+            <Table.Tbody>
+              <Table.Tr>
+                <Table.Td>Vazio por enquanto...</Table.Td>
+              </Table.Tr>
+            </Table.Tbody>
+          </Table>
+        )}
       </Paper>
     </Stack>
   );
