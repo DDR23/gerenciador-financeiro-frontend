@@ -2,6 +2,8 @@ import { Group, Menu, Paper, Stack, Table, Text, UnstyledButton } from '@mantine
 import { IconDotsVertical, IconEdit, IconTrash } from '@tabler/icons-react';
 import useGet from '../../hooks/useGet';
 import Loading from '../_ui/loading/Loading';
+import FormatDate from '../../utils/FormatDate';
+import FormatPrice from '../../utils/FormatPrice';
 
 // TODO FAZER REQUISIÇÃO DE METAS E MELHORAR LAYOUT DA PAGINA
 
@@ -34,8 +36,8 @@ export default function UserGoal({ userId }: UserGoalProps) {
     return (
       <Table.Tr key={row.GOAL_ID}>
         <Table.Td>{row.GOAL_NAME}</Table.Td>
-        <Table.Td ta='end'>{row.GOAL_AMOUNT}</Table.Td>
-        <Table.Td ta='end'>{row.GOAL_DEADLINE}</Table.Td>
+        <Table.Td ta='end'>{FormatPrice(row.GOAL_AMOUNT)}</Table.Td>
+        <Table.Td ta='end'>{FormatDate(row.GOAL_DEADLINE)}</Table.Td>
         <Table.Td ta='end'>
           <Group justify='end'>
             <Menu shadow="md">
@@ -64,9 +66,9 @@ export default function UserGoal({ userId }: UserGoalProps) {
       <Text size='lg'>Minhas metas</Text>
       <Paper withBorder radius='md' style={{ overflow: 'hidden' }}>
         {data && data.length > 0 ? (
-          <Table verticalSpacing="xs" w='700' striped highlightOnHover withRowBorders={false} >
+          <Table verticalSpacing="xs" w='900' striped highlightOnHover withRowBorders={false} >
             <Table.Thead>
-              <Table.Tr c='green' >
+              <Table.Tr  >
                 <Table.Th>Name</Table.Th>
                 <Table.Th ta='end'>Amount</Table.Th>
                 <Table.Th ta='end'>Deadline</Table.Th>
@@ -76,11 +78,7 @@ export default function UserGoal({ userId }: UserGoalProps) {
             <Table.Tbody>{rows}</Table.Tbody>
           </Table>
         ) : (
-          <Table verticalSpacing="xs" w='700' striped highlightOnHover withRowBorders={false} ta='center'>
-            <Table.Thead>
-              <Table.Tr c='green' >
-              </Table.Tr>
-            </Table.Thead>
+          <Table verticalSpacing="xs" w='900' striped highlightOnHover withRowBorders={false} ta='center'>
             <Table.Tbody>
               <Table.Tr>
                 <Table.Td>Vazio por enquanto...</Table.Td>
