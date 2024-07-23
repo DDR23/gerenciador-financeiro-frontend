@@ -1,11 +1,12 @@
 import React from 'react'
-import ReactDOM from 'react-dom/client'
-import App from './App.tsx'
-import './styles/globals.scss'
-import { Navigate, RouterProvider, createBrowserRouter } from 'react-router-dom'
 import '@mantine/core/styles.css';
-import { AuthProvider } from './contexts/AuthContext.tsx'
 import '@mantine/notifications/styles.css';
+import '@mantine/dates/styles.css';
+import './styles/globals.scss'
+import App from './App.tsx'
+import ReactDOM from 'react-dom/client'
+import { AuthProvider } from './contexts/AuthContext.tsx'
+import { Navigate, RouterProvider, createBrowserRouter } from 'react-router-dom'
 
 const router = createBrowserRouter([
   {
@@ -23,5 +24,5 @@ ReactDOM.createRoot(document.getElementById('root')!).render(
     <AuthProvider>
       <RouterProvider router={router} />
     </AuthProvider>
-  </React.StrictMode>,
+  </React.StrictMode>
 )
