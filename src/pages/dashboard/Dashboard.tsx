@@ -11,6 +11,7 @@ import { useEffect, useState } from "react";
 import useGet from "../../hooks/useGet";
 import PageDeactived from "../deactived/Deactived";
 import Loading from "../../components/_ui/loading/Loading";
+import MenuTrigger from "../../components/_ui/menuTrigger/MenuTrigger";
 
 interface UserProps {
   USER_ID: number;
@@ -46,6 +47,7 @@ export default function Dashboard() {
 
   return (
     <>
+      { selectedTab !== 'settings' && <MenuTrigger /> }
       {deactivedAccount ? (
         <>
           {data ? <PageDeactived data={data} token={authToken} /> : <Loading />}
