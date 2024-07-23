@@ -55,7 +55,7 @@ export default function Dashboard() {
       ) : (
         <AppShell
           header={{ height: 60 }}
-          navbar={{ width: 300, breakpoint: 'sm', collapsed: { mobile: !mobileOpened, desktop: !desktopOpened } }}
+          navbar={{ width: 260, breakpoint: 'sm', collapsed: { mobile: !mobileOpened, desktop: desktopOpened } }}
           padding="md"
         >
           <Tabs

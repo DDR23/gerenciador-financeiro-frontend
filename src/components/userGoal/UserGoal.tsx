@@ -1,11 +1,9 @@
-import { Group, Menu, Paper, Stack, Table, Text, UnstyledButton } from '@mantine/core';
+import { Group, Menu, Paper, ScrollArea, Stack, Table, Text, UnstyledButton } from '@mantine/core';
 import { IconDotsVertical, IconEdit, IconTrash } from '@tabler/icons-react';
 import useGet from '../../hooks/useGet';
 import Loading from '../_ui/loading/Loading';
 import FormatDate from '../../utils/FormatDate';
 import FormatPrice from '../../utils/FormatPrice';
-
-// TODO FAZER REQUISIÇÃO DE METAS E MELHORAR LAYOUT DA PAGINA
 
 interface GoalProps {
   FK_USER_ID: number;
@@ -32,12 +30,13 @@ export default function UserGoal({ userId }: UserGoalProps) {
     return <Loading />;
   }
 
-  const rows = data.map((row) => {
+  const sortedData = [...data].sort((a, b) => b.GOAL_ID - a.GOAL_ID);
+  const rows = sortedData.map((row) => {
     return (
       <Table.Tr key={row.GOAL_ID}>
         <Table.Td>{row.GOAL_NAME}</Table.Td>
         <Table.Td ta='end'>{FormatPrice(row.GOAL_AMOUNT)}</Table.Td>
-        <Table.Td ta='end'>{FormatDate(row.GOAL_DEADLINE)}</Table.Td>
+        <Table.Td visibleFrom='sm' ta='end'>{FormatDate(row.GOAL_DEADLINE)}</Table.Td>
         <Table.Td ta='end'>
           <Group justify='end'>
             <Menu shadow="md">
@@ -63,22 +62,24 @@ export default function UserGoal({ userId }: UserGoalProps) {
 
   return (
     <Stack align='center' justify='center' pt='xl'>
-      <Text size='lg'>Minhas metas</Text>
+      <Text size='lg'>My goals</Text>
       <Paper withBorder radius='md' style={{ overflow: 'hidden' }}>
         {data && data.length > 0 ? (
-          <Table verticalSpacing="xs" w='900' striped highlightOnHover withRowBorders={false} >
-            <Table.Thead>
-              <Table.Tr  >
-                <Table.Th>Name</Table.Th>
-                <Table.Th ta='end'>Amount</Table.Th>
-                <Table.Th ta='end'>Deadline</Table.Th>
-                <Table.Th ta='end'></Table.Th>
-              </Table.Tr>
-            </Table.Thead>
-            <Table.Tbody>{rows}</Table.Tbody>
-          </Table>
+          <ScrollArea h='60vh' offsetScrollbars scrollbarSize={8} >
+            <Table verticalSpacing="xs" miw='60vw' maw='90vw' striped highlightOnHover withRowBorders={false} >
+              <Table.Thead pos='sticky' bg='#232323'>
+                <Table.Tr>
+                  <Table.Th>Name</Table.Th>
+                  <Table.Th ta='end'>Amount</Table.Th>
+                  <Table.Th visibleFrom='sm' ta='end'>Deadline</Table.Th>
+                  <Table.Th ta='end'></Table.Th>
+                </Table.Tr>
+              </Table.Thead>
+              <Table.Tbody>{rows}</Table.Tbody>
+            </Table>
+          </ScrollArea>
         ) : (
-          <Table verticalSpacing="xs" w='900' striped highlightOnHover withRowBorders={false} ta='center'>
+          <Table verticalSpacing="xs" miw='60vw' maw='90vw' striped highlightOnHover withRowBorders={false} ta='center'>
             <Table.Tbody>
               <Table.Tr>
                 <Table.Td>Vazio por enquanto...</Table.Td>
