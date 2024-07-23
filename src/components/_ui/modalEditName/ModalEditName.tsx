@@ -6,7 +6,6 @@ import usePut from "../../../hooks/usePut";
 import { useEffect, useState } from "react";
 import { notifications } from "@mantine/notifications";
 import { IconCheck, IconCircleCheckFilled, IconX } from "@tabler/icons-react";
-import Loading from "../loading/Loading";
 
 interface UserPutValues {
   USER_NAME?: string;
@@ -25,7 +24,7 @@ export default function ModalEditName({ userId, token }: ModalEditNameProps) {
 
   const [posted, setPosted] = useState(false);
   const [data, setData] = useState<UserPutValues>({ USER_NAME: '' });
-  const { isUpdated, isUpdating, error } = usePut(`${import.meta.env.VITE_BASE_URL}/user/edit/${userId}`, data, posted, {
+  const { isUpdated, error } = usePut(`${import.meta.env.VITE_BASE_URL}/user/edit/${userId}`, data, posted, {
     headers: {
       Authorization: `Bearer ${token}`
     }
@@ -68,12 +67,6 @@ export default function ModalEditName({ userId, token }: ModalEditNameProps) {
         <IconCircleCheckFilled color="green" size={100} />
         <Text ta='center' c='dimmed'>Name changed successfully</Text>
       </Stack>
-    )
-  }
-
-  if (isUpdating) {
-    return (
-      <Loading />
     )
   }
 

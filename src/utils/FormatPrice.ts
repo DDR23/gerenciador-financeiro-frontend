@@ -3,5 +3,6 @@ export default function FormatPrice(value: number | bigint | undefined) {
     return '';
   }
 
-  return value.toLocaleString('pt-br', { style: 'currency', currency: 'BRL' });
+  const amount = Number(value) / 100;
+  return amount.toLocaleString('pt-br', { style: 'currency', currency: 'BRL' });
 }
