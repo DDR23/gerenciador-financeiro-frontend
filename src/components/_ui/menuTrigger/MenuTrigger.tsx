@@ -2,6 +2,7 @@ import { Menu, Group, ActionIcon, Modal } from '@mantine/core';
 import { useDisclosure } from '@mantine/hooks';
 import { IconPlus, IconSwitchHorizontal, IconCategory } from '@tabler/icons-react';
 import { useState } from 'react';
+import ModalCreateCategory from '../modalCreateCategory/ModalCreateCategory';
 
 export default function MenuTrigger() {
   const [opened, { open, close }] = useDisclosure(false);
@@ -51,7 +52,7 @@ export default function MenuTrigger() {
             backgroundOpacity: 0.55,
             blur: 3
           }}>
-          {/* <ModalEditName userId={USER_ID} token={token} /> */}
+          <ModalCreateCategory />
         </Modal>
       )}
       {modalContent === 'newTransaction' && (
