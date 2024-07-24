@@ -1,10 +1,9 @@
 import { AppShell, Burger, Button, Group, Image, Menu, Tabs, Text, UnstyledButton } from "@mantine/core";
 import { useAuth } from "../../contexts/AuthContext"
-import { IconHome, IconLogout, IconSettings, IconSwitchHorizontal, IconTargetArrow } from "@tabler/icons-react";
+import { IconHome, IconLogout, IconSettings, IconSwitchHorizontal } from "@tabler/icons-react";
 import { useDisclosure } from "@mantine/hooks";
 import ProviderUser from "../../utils/ProviderUser";
 import UserPanel from "../../components/userPanel/UserPanel";
-import UserGoal from "../../components/userGoal/UserGoal";
 import UserTransaction from "../../components/userTransaction/UserTransaction";
 import UserSettings from "../../components/userSettings/UserSettings";
 import { useEffect, useState } from "react";
@@ -41,7 +40,6 @@ export default function Dashboard() {
     }
   });
 
-  const userId = data ? data.USER_ID : null;
   const userName = data ? data.USER_NAME : '';
   const deactivedAccount = data ? data.USER_DELETED : false;
 
@@ -94,7 +92,6 @@ export default function Dashboard() {
             }}>
               <Tabs.List>
                 <Tabs.Tab value="dashboard" leftSection={<IconHome size={20} />}>Dashboard</Tabs.Tab>
-                <Tabs.Tab value="goals" leftSection={<IconTargetArrow size={20} />}>Goals</Tabs.Tab>
                 <Tabs.Tab value="transactions" leftSection={<IconSwitchHorizontal size={20} />}>Transactions</Tabs.Tab>
                 <Tabs.Tab value="settings" leftSection={<IconSettings size={20} />}>Settings</Tabs.Tab>
               </Tabs.List>
@@ -114,9 +111,6 @@ export default function Dashboard() {
             <AppShell.Main w='100vw' h='100vh'>
               <Tabs.Panel value="dashboard">
                 <UserPanel />
-              </Tabs.Panel>
-              <Tabs.Panel value="goals" h='100%'>
-                {data ? <UserGoal userId={userId} /> : <Loading />}
               </Tabs.Panel>
               <Tabs.Panel value="transactions">
                 <UserTransaction />

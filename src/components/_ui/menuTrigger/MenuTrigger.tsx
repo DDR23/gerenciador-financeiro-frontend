@@ -1,14 +1,13 @@
 import { Menu, Group, ActionIcon, Modal } from '@mantine/core';
 import { useDisclosure } from '@mantine/hooks';
-import { IconPlus, IconTargetArrow, IconSwitchHorizontal, IconCategory } from '@tabler/icons-react';
+import { IconPlus, IconSwitchHorizontal, IconCategory } from '@tabler/icons-react';
 import { useState } from 'react';
-import ModalNewGoal from '../modalNewGoal/ModalNewGoal';
 
 export default function MenuTrigger() {
   const [opened, { open, close }] = useDisclosure(false);
-  const [modalContent, setModalContent] = useState<'newGoal' | 'newCategory' | 'newTransaction' | ''>('');
+  const [modalContent, setModalContent] = useState<'newCategory' | 'newTransaction' | ''>('');
 
-  const handleOpen = (content: 'newGoal' | 'newCategory' | 'newTransaction') => {
+  const handleOpen = (content: 'newCategory' | 'newTransaction') => {
     setModalContent(content);
     open();
   };
@@ -29,13 +28,7 @@ export default function MenuTrigger() {
           </Menu.Target>
           <Menu.Dropdown>
             <Menu.Item
-              onClick={() => handleOpen('newGoal')}
-              leftSection={<IconTargetArrow size={20} />}
-            >
-              New goal
-            </Menu.Item>
-            <Menu.Item
-              onClick={() => handleOpen('newGoal')}
+              onClick={() => handleOpen('newCategory')}
               leftSection={<IconCategory size={20} />}
             >
               New category
@@ -49,18 +42,6 @@ export default function MenuTrigger() {
           </Menu.Dropdown>
         </Menu>
       </Group>
-      {modalContent === 'newGoal' && (
-        <Modal
-          opened={opened}
-          onClose={close}
-          withCloseButton={false}
-          overlayProps={{
-            backgroundOpacity: 0.55,
-            blur: 3
-          }}>
-          <ModalNewGoal />
-        </Modal>
-      )}
       {modalContent === 'newCategory' && (
         <Modal
           opened={opened}
