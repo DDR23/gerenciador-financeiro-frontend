@@ -12,12 +12,12 @@ interface UserPutValues {
   USER_DELETED?: boolean;
 }
 
-interface ModalEditNameProps {
+interface ModalDeleteUserProps {
   userId: number;
   token: string | null;
 }
 
-export default function ModalDeleteUser({ userId, token }: ModalEditNameProps) {
+export default function ModalDeleteUser({ userId, token }: ModalDeleteUserProps) {
   const { handleSubmit } = useForm({
     mode: 'onChange',
     resolver: yupResolver(schemaEditUser)
