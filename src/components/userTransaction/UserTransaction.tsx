@@ -1,6 +1,7 @@
 import { Tabs } from '@mantine/core';
 import { IconSwitchHorizontal, IconCategory } from '@tabler/icons-react';
 import Categories from './Categories';
+import Transactions from './Transactions';
 
 export default function UserTransaction() {
   
@@ -15,8 +16,7 @@ export default function UserTransaction() {
         </Tabs.Tab>
       </Tabs.List>
       <Tabs.Panel value="transactions">
-        Transactions tab content
-        {/* TODO começar daqui, fazer area de listagem de transações separadas por entrada e saida */}
+        <Transactions />
       </Tabs.Panel>
       <Tabs.Panel value="category">
         <Categories />
