@@ -1,6 +1,9 @@
 import * as yup from 'yup'
 
-export const schemaCategory = yup.object().shape({
+export const schemaTransaction = yup.object().shape({
+  TRANSACTION_ID: yup
+    .number()
+    .optional(),
   TRANSACTION_DESCRIPTION: yup
     .string()
     .optional(),
@@ -12,7 +15,7 @@ export const schemaCategory = yup.object().shape({
     .optional(),
   TRANSACTION_TYPE: yup
     .string()
-    .oneOf(['receita', 'despesa'])
+    .oneOf(['revenue', 'expense'])
     .optional(),
   FK_USER_ID: yup
     .number()
