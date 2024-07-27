@@ -23,6 +23,7 @@ export default function SaveEdit({ transactionValues, token }: SaveEditProps) {
 
   const handleClick = () => {
     if (isConfirmation) {
+      console.log(transactionValues)
       setData(transactionValues);
       setPosted(true);
     } else {
@@ -56,7 +57,7 @@ export default function SaveEdit({ transactionValues, token }: SaveEditProps) {
     }
   }, [error, isUpdated]);
 
-  // TODO é preciso ajeitar a dinamica de EncodedVideoChunk, caso o usuario cancele um envio no segundo click, reedite e envie, os valores da segunda edição nao são contabilizados, o ideal seria bloquear os inputs, pra que seja obrigado a fechar o modal
+  // TODO é preciso ajeitar a dinamica de funcionamento, caso o usuario cancele um envio no segundo click, reedite e envie, os valores da segunda edição nao são contabilizados, o ideal seria bloquear os inputs, pra que seja obrigado a fechar o modal
   return (
     <Button
       onClick={handleClick}

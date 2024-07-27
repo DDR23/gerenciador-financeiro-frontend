@@ -5,8 +5,10 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import { Center, NativeSelect, Stack, TextInput } from "@mantine/core";
 import useGet from "../../../hooks/useGet";
 import Loading from "../loading/Loading";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import SaveEdit from "./SaveEdit";
+import { DatePickerInput } from '@mantine/dates';
+import dayjs from 'dayjs';
 
 interface ModalDetailsTransactionProps {
   token: string | null;
@@ -25,6 +27,7 @@ export default function ModalDetailsTransaction({ token, transaction }: ModalDet
     resolver: yupResolver(schemaTransaction),
   });
   const [transactionValues, setTransactionValues] = useState<TransactionsProps>();
+  const [dateValue, setDateValue] = useState<Date | null>(null);
 
   const { data } = useGet<CategoryProps[]>(`${import.meta.env.VITE_BASE_URL}/category/user`, {
     headers: {
@@ -32,23 +35,29 @@ export default function ModalDetailsTransaction({ token, transaction }: ModalDet
     },
   });
 
+  useEffect(() => {
+    if (transaction && transaction.TRANSACTION_DATE) {
+      const newDate = new Date(transaction.TRANSACTION_DATE);
+      if (dateValue === null || newDate.getTime() !== dateValue.getTime()) {
+        setDateValue(newDate);
+      }
+    }
+  }, [transaction]);
+
+  const submitForm: SubmitHandler<TransactionsProps> = (formData) => {
+    const transactionDate = dateValue ? dayjs(dateValue).format('YYYY-MM-DD') : '';
+    // TODO é preciso adicionar o TRANSACTION_ID
+    setTransactionValues({ ...formData, TRANSACTION_DATE: transactionDate });
+  };
+
   if (!data) {
     return <Loading />;
   }
 
   const filteredCategory = data.find(category => category.CATEGORY_ID === transaction?.FK_CATEGORY_ID);
 
-  const submitForm: SubmitHandler<TransactionsProps> = (formData) => {
-    const transactionId = transaction?.TRANSACTION_ID;
-    setTransactionValues({
-      ...formData,
-      TRANSACTION_ID: transactionId,
-      TRANSACTION_AMOUNT: formData.TRANSACTION_AMOUNT ? Math.round(formData.TRANSACTION_AMOUNT) : 0,
-      TRANSACTION_DATE: formData.TRANSACTION_DATE,
-    });
-  };
-  
-  // TODO ao enviar ta batendo erro 500 no servidor
+  console.log(transactionValues)
+
   return (
     <>
       <Stack gap={0} mb={20}>
@@ -61,6 +70,7 @@ export default function ModalDetailsTransaction({ token, transaction }: ModalDet
           defaultValue={transaction?.TRANSACTION_DESCRIPTION}
           label="Description"
         />
+        {/* TODO adicionar formatPrice */}
         <TextInput
           {...register('TRANSACTION_AMOUNT')}
           defaultValue={transaction?.TRANSACTION_AMOUNT}
@@ -72,10 +82,12 @@ export default function ModalDetailsTransaction({ token, transaction }: ModalDet
           label="Type"
           data={['revenue', 'expense']}
         />
-        <TextInput
-          {...register('TRANSACTION_DATE')}
-          defaultValue={transaction?.TRANSACTION_DATE}
+        <DatePickerInput
+          valueFormat="MM/DD/YYYY"
+          minDate={new Date()}
           label="Date"
+          value={dateValue}
+          onChange={setDateValue}
         />
         <NativeSelect
           {...register('FK_CATEGORY_ID')}
