@@ -22,7 +22,7 @@ interface UserProps {
 
 export default function Dashboard() {
   const [mobileOpened, { toggle: toggleMobile }] = useDisclosure();
-  const [desktopOpened, { toggle: toggleDesktop }] = useDisclosure(false);
+  const [desktopOpened, { toggle: toggleDesktop }] = useDisclosure(true);
   const { logout } = useAuth();
   const authToken = localStorage.getItem('token')
 
@@ -53,7 +53,7 @@ export default function Dashboard() {
       ) : (
         <AppShell
           header={{ height: 60 }}
-          navbar={{ width: 260, breakpoint: 'sm', collapsed: { mobile: !mobileOpened, desktop: desktopOpened } }}
+          navbar={{ width: 260, breakpoint: 'sm', collapsed: { mobile: !mobileOpened, desktop: !desktopOpened } }}
           padding="md"
         >
           <Tabs

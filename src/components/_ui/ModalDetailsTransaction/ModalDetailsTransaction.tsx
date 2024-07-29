@@ -60,8 +60,6 @@ export default function ModalDetailsTransaction({ token, transaction }: ModalDet
 
   const filteredCategory = data.find(category => category.CATEGORY_ID === transaction?.FK_CATEGORY_ID);
 
-  console.log(transactionValues)
-
   return (
     <>
       <Stack gap={0} mb={20}>

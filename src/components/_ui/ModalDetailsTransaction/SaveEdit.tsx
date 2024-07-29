@@ -23,7 +23,6 @@ export default function SaveEdit({ transactionValues, token }: SaveEditProps) {
 
   const handleClick = () => {
     if (isConfirmation) {
-      console.log(transactionValues)
       setData(transactionValues);
       setPosted(true);
     } else {
