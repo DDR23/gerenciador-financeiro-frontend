@@ -36,42 +36,37 @@ export default function Home() {
               Sign up
             </Button>
           </Group>
-          {modalContent === 'login' && (
-            <Modal
-              opened={opened}
-              onClose={close}
-              withCloseButton={false}
-              overlayProps={{
-                backgroundOpacity: 0.55,
-                blur: 3
-              }}>
-              <ModalSignin />
-              <Text c="dimmed" size="sm" ta="center" mt={20}>
-                Do not have an account yet?{' '}
-                <Anchor size="sm" component="button" onClick={() => handleOpen('signup')}>
-                  Create account
-                </Anchor>
-              </Text>
-            </Modal>
-          )}
-          {modalContent === 'signup' && (
-            <Modal
-              opened={opened}
-              onClose={close}
-              withCloseButton={false}
-              overlayProps={{
-                backgroundOpacity: 0.55,
-                blur: 3
-              }}>
-              <ModalSingup />
-              <Text c="dimmed" size="sm" ta="center" mt={20}>
-                Already have an account?{' '}
-                <Anchor size="sm" component="button" onClick={() => handleOpen('login')}>
-                  Login
-                </Anchor>
-              </Text>
-            </Modal>
-          )}
+          <Modal
+            opened={opened}
+            onClose={close}
+            withCloseButton={false}
+            overlayProps={{
+              backgroundOpacity: 0.55,
+              blur: 3
+            }}>
+            {modalContent === 'login' && (
+              <>
+                <ModalSignin />
+                <Text c="dimmed" size="sm" ta="center" mt={20}>
+                  Do not have an account yet?{' '}
+                  <Anchor size="sm" component="button" onClick={() => handleOpen('signup')}>
+                    Create account
+                  </Anchor>
+                </Text>
+              </>
+            )}
+            {modalContent === 'signup' && (
+              <>
+                <ModalSingup />
+                <Text c="dimmed" size="sm" ta="center" mt={20}>
+                  Already have an account?{' '}
+                  <Anchor size="sm" component="button" onClick={() => handleOpen('login')}>
+                    Login
+                  </Anchor>
+                </Text>
+              </>
+            )}
+          </Modal>
         </div>
       </div>
     </>
