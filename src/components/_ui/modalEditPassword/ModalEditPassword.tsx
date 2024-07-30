@@ -16,7 +16,6 @@ interface UserPutValues {
 
 interface ModalEditPasswordProps {
   userEmail: string;
-  userId: number;
   token: string | null;
 }
 
@@ -33,7 +32,7 @@ function validatePassword(password: string): string[] {
   return errors;
 }
 
-export default function ModalEditPassword({ userId, token, userEmail }: ModalEditPasswordProps) {
+export default function ModalEditPassword({ token, userEmail }: ModalEditPasswordProps) {
   const { register, handleSubmit, watch } = useForm({
     mode: 'onChange',
     resolver: yupResolver(schemaEditUser)
@@ -42,7 +41,7 @@ export default function ModalEditPassword({ userId, token, userEmail }: ModalEdi
   const watchPassword = watch("USER_PASSWORD", "");
   const [posted, setPosted] = useState(false);
   const [data, setData] = useState<UserPutValues>({ USER_EMAIL: userEmail, USER_PASSWORD: '' });
-  const { isUpdated, isUpdating, error } = usePut(`${import.meta.env.VITE_BASE_URL}/user/edit/${userId}`, data, posted, {
+  const { isUpdated, isUpdating, error } = usePut(`${import.meta.env.VITE_BASE_URL}/user/edit`, data, posted, {
     headers: {
       Authorization: `Bearer ${token}`
     }

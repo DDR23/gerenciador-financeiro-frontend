@@ -19,7 +19,7 @@ interface UserSettingsProps {
 
 export default function UserSettings({ user }: UserSettingsProps) {
   const token = localStorage.getItem('token')
-  const { USER_ID, USER_NAME, USER_EMAIL } = user;
+  const { USER_NAME, USER_EMAIL } = user;
   const [opened, { open, close }] = useDisclosure(false);
   const [modalContent, setModalContent] = useState<'editName' | 'editPassword' | 'deleted' | ''>('');
 
@@ -90,7 +90,7 @@ export default function UserSettings({ user }: UserSettingsProps) {
             backgroundOpacity: 0.55,
             blur: 3
           }}>
-          <ModalEditName userId={USER_ID} token={token} />
+          <ModalEditName token={token} />
         </Modal>
       )}
       {modalContent === 'editPassword' && (
@@ -102,7 +102,7 @@ export default function UserSettings({ user }: UserSettingsProps) {
             backgroundOpacity: 0.55,
             blur: 3
           }}>
-          <ModalEditPassword userEmail={USER_EMAIL} userId={USER_ID} token={token} />
+          <ModalEditPassword userEmail={USER_EMAIL} token={token} />
         </Modal>
       )}
       {modalContent === 'deleted' && (
@@ -114,7 +114,7 @@ export default function UserSettings({ user }: UserSettingsProps) {
             backgroundOpacity: 0.55,
             blur: 3
           }}>
-          <ModalDeleteUser userId={USER_ID} token={token} />
+          <ModalDeleteUser token={token} />
         </Modal>
       )}
     </>

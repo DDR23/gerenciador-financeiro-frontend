@@ -12,11 +12,10 @@ interface UserPutValues {
 }
 
 interface ModalEditNameProps {
-  userId: number;
   token: string | null;
 }
 
-export default function ModalEditName({ userId, token }: ModalEditNameProps) {
+export default function ModalEditName({ token }: ModalEditNameProps) {
   const { register, handleSubmit, formState: { errors } } = useForm({
     mode: 'onChange',
     resolver: yupResolver(schemaEditUser)
@@ -24,7 +23,7 @@ export default function ModalEditName({ userId, token }: ModalEditNameProps) {
 
   const [posted, setPosted] = useState(false);
   const [data, setData] = useState<UserPutValues>({ USER_NAME: '' });
-  const { isUpdated, error } = usePut(`${import.meta.env.VITE_BASE_URL}/user/edit/${userId}`, data, posted, {
+  const { isUpdated, error } = usePut(`${import.meta.env.VITE_BASE_URL}/user/edit`, data, posted, {
     headers: {
       Authorization: `Bearer ${token}`
     }

@@ -35,9 +35,8 @@ export default function PageDeactived({ data, token }: PageDeactivedProps) {
 
   const { logout } = useAuth();
   const userName = data?.USER_NAME;
-  const userId = data?.USER_ID;
   const [posted, setPosted] = useState(false);
-  const { isUpdated, isUpdating, error } = usePut(`${import.meta.env.VITE_BASE_URL}/user/edit/${userId}`, { USER_DELETED: false }, posted, {
+  const { isUpdated, isUpdating, error } = usePut(`${import.meta.env.VITE_BASE_URL}/user/edit`, { USER_DELETED: false }, posted, {
     headers: {
       Authorization: `Bearer ${token}`
     }

@@ -13,18 +13,17 @@ interface UserPutValues {
 }
 
 interface ModalDeleteUserProps {
-  userId: number;
   token: string | null;
 }
 
-export default function ModalDeleteUser({ userId, token }: ModalDeleteUserProps) {
+export default function ModalDeleteUser({ token }: ModalDeleteUserProps) {
   const { handleSubmit } = useForm({
     mode: 'onChange',
     resolver: yupResolver(schemaEditUser)
   });
 
   const [isDelete, setIsDelete] = useState(false);
-  const { isDeleted, isDeleting, error } = useDelete(`${import.meta.env.VITE_BASE_URL}/user/delete/${userId}`, isDelete, {
+  const { isDeleted, isDeleting, error } = useDelete(`${import.meta.env.VITE_BASE_URL}/user/delete`, isDelete, {
     headers: {
       Authorization: `Bearer ${token}`
     }
