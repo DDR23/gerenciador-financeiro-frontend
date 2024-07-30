@@ -64,7 +64,7 @@ export default function MenuTrigger() {
             backgroundOpacity: 0.55,
             blur: 3
           }}>
-          {/* <ModalEditName userId={USER_ID} token={token} /> */}
+          {/* TODO começar daqui, desenvolver modal de criação de nova transação */}
         </Modal>
       )}
     </>
