@@ -81,42 +81,18 @@ export default function UserSettings({ user }: UserSettingsProps) {
           Delete my account
         </Button>
       </Paper>
-      {modalContent === 'editName' && (
-        <Modal
-          opened={opened}
-          onClose={close}
-          withCloseButton={false}
-          overlayProps={{
-            backgroundOpacity: 0.55,
-            blur: 3
-          }}>
-          <ModalEditName token={token} />
-        </Modal>
-      )}
-      {modalContent === 'editPassword' && (
-        <Modal
-          opened={opened}
-          onClose={close}
-          withCloseButton={false}
-          overlayProps={{
-            backgroundOpacity: 0.55,
-            blur: 3
-          }}>
-          <ModalEditPassword userEmail={USER_EMAIL} token={token} />
-        </Modal>
-      )}
-      {modalContent === 'deleted' && (
-        <Modal
-          opened={opened}
-          onClose={close}
-          withCloseButton={false}
-          overlayProps={{
-            backgroundOpacity: 0.55,
-            blur: 3
-          }}>
-          <ModalDeleteUser token={token} />
-        </Modal>
-      )}
+      <Modal
+        opened={opened}
+        onClose={close}
+        withCloseButton={false}
+        overlayProps={{
+          backgroundOpacity: 0.55,
+          blur: 3
+        }}>
+        {modalContent === 'editName' && <ModalEditName token={token} />}
+        {modalContent === 'editPassword' && <ModalEditPassword userEmail={USER_EMAIL} token={token} />}
+        {modalContent === 'deleted' && <ModalDeleteUser token={token} />}
+      </Modal>
     </>
   );
 }
