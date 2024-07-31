@@ -1,4 +1,4 @@
-import { MantineProvider, createTheme, rem } from '@mantine/core';
+import { BackgroundImage, MantineProvider, createTheme, rem } from '@mantine/core';
 import Home from "./pages/home/Home";
 import { useAuth } from "./contexts/AuthContext";
 import { Notifications } from "@mantine/notifications";
@@ -38,9 +38,9 @@ export default function App() {
     <>
       <MantineProvider theme={theme} defaultColorScheme="auto">
         <Notifications />
-        <div className="body">
+        <BackgroundImage src='wallpaper.png'>
           {isAuthenticated ? <Dashboard /> : <Home />}
-        </div>
+        </BackgroundImage>
       </MantineProvider>
     </>
   )
