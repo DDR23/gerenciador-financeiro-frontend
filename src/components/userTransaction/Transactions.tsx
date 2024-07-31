@@ -57,7 +57,7 @@ export default function Transactions({ transactions, token }: TransactionsProps)
               </UnstyledButton>
             </Menu.Target>
             <Menu.Dropdown>
-              <Menu.Item onClick={() => handleOpen(row.TRANSACTION_ID)} c="#e03131" leftSection={<IconTrash size={20} />}>
+              <Menu.Item onClick={() => handleOpen(row.TRANSACTION_ID || 0)} c="#e03131" leftSection={<IconTrash size={20} />}>
                 Delete
               </Menu.Item>
             </Menu.Dropdown>
