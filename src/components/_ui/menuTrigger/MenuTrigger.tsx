@@ -3,6 +3,7 @@ import { useDisclosure } from '@mantine/hooks';
 import { IconPlus, IconSwitchHorizontal, IconCategory } from '@tabler/icons-react';
 import { useState } from 'react';
 import ModalCreateCategory from '../modalCreateCategory/ModalCreateCategory';
+import ModalCreateTransaction from '../modalCreateTransaction/ModalCreateTransaction';
 
 export default function MenuTrigger() {
   const [opened, { open, close }] = useDisclosure(false);
@@ -43,30 +44,17 @@ export default function MenuTrigger() {
           </Menu.Dropdown>
         </Menu>
       </Group>
-      {modalContent === 'newCategory' && (
-        <Modal
-          opened={opened}
-          onClose={close}
-          withCloseButton={false}
-          overlayProps={{
-            backgroundOpacity: 0.55,
-            blur: 3
-          }}>
-          <ModalCreateCategory />
-        </Modal>
-      )}
-      {modalContent === 'newTransaction' && (
-        <Modal
-          opened={opened}
-          onClose={close}
-          withCloseButton={false}
-          overlayProps={{
-            backgroundOpacity: 0.55,
-            blur: 3
-          }}>
-          {/* TODO começar daqui, desenvolver modal de criação de nova transação */}
-        </Modal>
-      )}
+      <Modal
+        opened={opened}
+        onClose={close}
+        withCloseButton={false}
+        overlayProps={{
+          backgroundOpacity: 0.55,
+          blur: 3
+        }}>
+        {modalContent === 'newCategory' && <ModalCreateCategory />}
+        {modalContent === 'newTransaction' && <ModalCreateTransaction />}
+      </Modal>
     </>
   );
 }
