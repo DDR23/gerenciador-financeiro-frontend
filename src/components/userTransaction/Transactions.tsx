@@ -1,4 +1,4 @@
-import { Group, Menu, Modal, Paper, ScrollArea, Stack, Table, UnstyledButton } from "@mantine/core";
+import { Badge, Group, Menu, Modal, Paper, ScrollArea, Stack, Table, UnstyledButton } from "@mantine/core";
 import { IconDotsVertical, IconTrash } from '@tabler/icons-react';
 import { useDisclosure } from "@mantine/hooks";
 import { useState } from 'react';
@@ -46,7 +46,7 @@ export default function Transactions({ transactions, token }: TransactionsProps)
       <Table.Td>{row.TRANSACTION_DESCRIPTION}</Table.Td>
       <Table.Td ta='end'>{FormatPrice(row.TRANSACTION_AMOUNT)}</Table.Td>
       <Table.Td ta='end'>{FormatDate(row.TRANSACTION_DATE)}</Table.Td>
-      <Table.Td ta='end'>{row.TRANSACTION_TYPE}</Table.Td>
+      <Table.Td ta='end'><Badge color={row.TRANSACTION_TYPE === 'revenue' ? 'green' : 'red'}>{row.TRANSACTION_TYPE}</Badge></Table.Td>
       <Table.Td ta='end'>{getCategoryName(row.FK_CATEGORY_ID)}</Table.Td>
       <Table.Td ta='end'>
         <Group justify='end'>
