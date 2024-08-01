@@ -102,18 +102,20 @@ export default function ModalCreateTransaction({ userId, categories }: ModalCrea
       <form onSubmit={handleSubmit(submitForm)}>
         <TextInput
           {...register('TRANSACTION_DESCRIPTION')}
-          label="Description"
+          label="Name/Description"
+          placeholder='Enter a description'
           required
         />
         <NumberInput
-          label="With prefix"
-          placeholder="Dollars"
+          label="Amount"
           prefix="US$ "
+          placeholder='US$ 0,00'
           thousandSeparator='.'
           decimalSeparator=','
           decimalScale={2}
           value={amountValue}
           onChange={setAmountValue}
+          required
         />
         <DatePickerInput
           valueFormat="MM/DD/YYYY"
@@ -129,12 +131,22 @@ export default function ModalCreateTransaction({ userId, categories }: ModalCrea
           data={['revenue', 'expense']}
           required
         />
-        <NativeSelect
-          {...register('FK_CATEGORY_ID')}
-          label="Category"
-          data={categories.map(cat => ({ value: cat.CATEGORY_ID?.toString() || '', label: cat.CATEGORY_NAME || '' }))}
-          required
-        />
+        {categories.length > 0 ? (
+          <NativeSelect
+            {...register('FK_CATEGORY_ID')}
+            label="Category"
+            data={categories.map(cat => ({ value: cat.CATEGORY_ID?.toString() || '', label: cat.CATEGORY_NAME || '' }))}
+            required
+          />
+        ) : (
+          <>
+            <NativeSelect
+              label="Category"
+              disabled
+            />
+            <Text c="red" mt="sm" size='xs'>You need to create a category before adding a transaction.</Text>
+          </>
+        )}
         <Button type='submit' fullWidth mt="xl" fw={500}>
           Save
         </Button>
