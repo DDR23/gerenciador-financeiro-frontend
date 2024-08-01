@@ -6,9 +6,10 @@ import { useDisclosure } from "@mantine/hooks";
 import ModalDeleteCategory from "../_ui/modalDeleteCategory/ModalDeleteCategory";
 import { useState } from 'react';
 
-interface CategoriesProps {
-  CATEGORY_ID: number;
-  CATEGORY_NAME: string;
+export interface CategoryProps {
+  CATEGORY_ID: number
+  CATEGORY_NAME: string
+  FK_USER_ID: number
 }
 
 export default function Categories() {
@@ -16,7 +17,7 @@ export default function Categories() {
   const [opened, { open, close }] = useDisclosure(false);
   const [selectedCategory, setSelectedCategory] = useState<number | null>(null);
 
-  const { data } = useGet<CategoriesProps[]>(`${import.meta.env.VITE_BASE_URL}/category/user`, {
+  const { data } = useGet<CategoryProps[]>(`${import.meta.env.VITE_BASE_URL}/category/user`, {
     headers: {
       Authorization: `Bearer ${authToken}`
     }

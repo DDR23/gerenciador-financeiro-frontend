@@ -4,8 +4,16 @@ import { IconPlus, IconSwitchHorizontal, IconCategory } from '@tabler/icons-reac
 import { useState } from 'react';
 import ModalCreateCategory from '../modalCreateCategory/ModalCreateCategory';
 import ModalCreateTransaction from '../modalCreateTransaction/ModalCreateTransaction';
+import useGet from '../../../hooks/useGet';
+import Loading from '../loading/Loading';
+import { CategoryProps } from '../../userTransaction/Categories';
 
-export default function MenuTrigger() {
+interface MenuTriggerProps {
+  userId: number
+}
+
+export default function MenuTrigger({ userId }: MenuTriggerProps ) {
+  const authToken = localStorage.getItem('token');
   const [opened, { open, close }] = useDisclosure(false);
   const [modalContent, setModalContent] = useState<'newCategory' | 'newTransaction' | ''>('');
 
@@ -13,6 +21,17 @@ export default function MenuTrigger() {
     setModalContent(content);
     open();
   };
+
+  const { data } = useGet<CategoryProps[]>(`${import.meta.env.VITE_BASE_URL}/category/user`, {
+    headers: {
+      Authorization: `Bearer ${authToken}`,
+    },
+  });
+
+  if (!data) {
+    return <Loading />;
+  }
+
   return (
     <>
       <Group m={30} style={{
@@ -53,7 +72,7 @@ export default function MenuTrigger() {
           blur: 3
         }}>
         {modalContent === 'newCategory' && <ModalCreateCategory />}
-        {modalContent === 'newTransaction' && <ModalCreateTransaction />}
+        {modalContent === 'newTransaction' && <ModalCreateTransaction userId={userId} categories={data}/>}
       </Modal>
     </>
   );

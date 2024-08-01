@@ -40,12 +40,13 @@ export default function Dashboard() {
     }
   });
 
+  const userId = data ? data.USER_ID : 0;
   const userName = data ? data.USER_NAME : '';
   const deactivedAccount = data ? data.USER_DELETED : false;
 
   return (
     <>
-      { selectedTab !== 'settings' && <MenuTrigger /> }
+      { selectedTab !== 'settings' && <MenuTrigger userId={userId} /> }
       {deactivedAccount ? (
         <>
           {data ? <PageDeactived data={data} token={authToken} /> : <Loading />}
