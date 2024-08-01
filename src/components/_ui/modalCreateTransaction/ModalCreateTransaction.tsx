@@ -35,15 +35,12 @@ export default function ModalCreateTransaction({ userId, categories }: ModalCrea
     FK_CATEGORY_ID: 0
   });
 
-  console.log(data)
-
   const { isPosted, error, error409 } = usePost<UserTransactionProps>(`${import.meta.env.VITE_BASE_URL}/transaction/create`, data, posted, {
     headers: {
       Authorization: `Bearer ${authToken}`
     }
   });
 
-  console.log(amountValue)
   const submitForm: SubmitHandler<UserTransactionProps> = (formData) => {
     const transactionDate = dateValue ? dayjs(dateValue).format('YYYY-MM-DD') : '';
     const transactionAmount = amountValue as number * 100;

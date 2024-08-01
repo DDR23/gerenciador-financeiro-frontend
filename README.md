@@ -3,5 +3,4 @@
 🎯 Etapas de Desenvolvimento
 ...
 
-
-<!-- TODO ADICIONADO BOTÃO FLUTUANTE PARA ADICIONAR NOVAS METAS E TRANSAÇÕES, UM MENU COM OPCÕES QUE ABREM MODAIS -->
+<!-- TODO - desenvolver area de dashboard -->
