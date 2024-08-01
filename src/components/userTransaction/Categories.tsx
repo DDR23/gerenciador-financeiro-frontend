@@ -1,4 +1,4 @@
-import { Group, Menu, Modal, Paper, ScrollArea, Stack, Table, UnstyledButton } from "@mantine/core";
+import { Group, Menu, Modal, Paper, ScrollArea, Stack, Table, Text, UnstyledButton } from "@mantine/core";
 import { IconDotsVertical, IconTrash } from '@tabler/icons-react';
 import useGet from '../../hooks/useGet';
 import Loading from '../_ui/loading/Loading';
@@ -73,7 +73,10 @@ export default function Categories() {
           <Table h='60vh' verticalSpacing="xs" highlightOnHover withRowBorders={false} ta='center'>
             <Table.Tbody>
               <Table.Tr>
-                <Table.Td>Empty...</Table.Td>
+              <Table.Td>
+                  <Text c='dimmed'>Category</Text>
+                  <Text>Empty...</Text>
+                </Table.Td>
               </Table.Tr>
             </Table.Tbody>
           </Table>

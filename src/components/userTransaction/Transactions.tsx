@@ -1,4 +1,4 @@
-import { Badge, Group, Menu, Modal, Paper, ScrollArea, Stack, Table, UnstyledButton } from "@mantine/core";
+import { Badge, Group, Menu, Modal, Paper, ScrollArea, Stack, Table, Text, UnstyledButton } from "@mantine/core";
 import { IconDotsVertical, IconTrash } from '@tabler/icons-react';
 import { useDisclosure } from "@mantine/hooks";
 import { useState } from 'react';
@@ -90,7 +90,10 @@ export default function Transactions({ transactions, token }: TransactionsProps)
           <Table h='60vh' verticalSpacing="xs" highlightOnHover withRowBorders={false} ta='center'>
             <Table.Tbody>
               <Table.Tr>
-                <Table.Td>Empty...</Table.Td>
+                <Table.Td>
+                  <Text c='dimmed'>Transactions</Text>
+                  <Text>Empty...</Text>
+                </Table.Td>
               </Table.Tr>
             </Table.Tbody>
           </Table>
