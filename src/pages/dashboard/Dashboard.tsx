@@ -12,7 +12,7 @@ import PageDeactived from "../deactived/Deactived";
 import Loading from "../../components/_ui/loading/Loading";
 import MenuTrigger from "../../components/_ui/menuTrigger/MenuTrigger";
 
-interface UserProps {
+export interface UserProps {
   USER_ID: number;
   USER_NAME: string;
   USER_EMAIL: string;
@@ -111,7 +111,7 @@ export default function Dashboard() {
             </AppShell.Navbar>
             <AppShell.Main w='100vw' h='100vh'>
               <Tabs.Panel value="dashboard">
-                <UserPanel />
+                <UserPanel user={data} />
               </Tabs.Panel>
               <Tabs.Panel value="transactions">
                 <UserTransaction />
