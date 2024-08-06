@@ -5,6 +5,7 @@ import FormatPrice from "../../utils/FormatPrice";
 import useGet from "../../hooks/useGet";
 import { UserTransactionProps } from "../userTransaction/UserTransaction";
 import Loading from "../_ui/loading/Loading";
+import TransactionChart from "./TransactionsChart";
 
 interface UserPanelProps {
   user: UserProps | null
@@ -71,6 +72,9 @@ export default function UserPanel({ user }: UserPanelProps) {
           </Group>
         </Paper>
       </SimpleGrid>
+      <Paper w='100%' h='50vh' mt='md' withBorder radius='md' style={{ overflow: 'hidden' }}>
+        <TransactionChart transactions={data} />
+      </Paper>
     </>
   )
 }
