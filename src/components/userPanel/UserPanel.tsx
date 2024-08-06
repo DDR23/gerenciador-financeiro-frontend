@@ -1,7 +1,10 @@
 import { Group, Paper, SimpleGrid, Text, Title } from "@mantine/core";
 import { UserProps } from "../../pages/dashboard/Dashboard";
-import { IconArrowDown, IconArrowDownRight, IconArrowUp, IconArrowUpRight, IconWallet } from "@tabler/icons-react";
+import { IconArrowDown, IconArrowUp, IconWallet } from "@tabler/icons-react";
 import FormatPrice from "../../utils/FormatPrice";
+import useGet from "../../hooks/useGet";
+import { UserTransactionProps } from "../userTransaction/UserTransaction";
+import Loading from "../_ui/loading/Loading";
 
 interface UserPanelProps {
   user: UserProps | null
@@ -9,18 +12,30 @@ interface UserPanelProps {
 
 export default function UserPanel({ user }: UserPanelProps) {
 
-  const usuario = user;
+  const authToken = localStorage.getItem('token');
+  const { data } = useGet<UserTransactionProps[]>(`${import.meta.env.VITE_BASE_URL}/transaction/user`, {
+    headers: {
+      Authorization: `Bearer ${authToken}`
+    }
+  });
 
-  const entrada = 123998
-  const saida = 159757
-  const saldo = entrada - saida
-  const total = entrada + saida
+  if (!data) {
+    return <Loading />;
+  }
 
-  //TODO finalizar parte superior do dashboard e desenvolver chart
+  const totalRevenuesValue = data
+    .filter(transaction => transaction.TRANSACTION_TYPE === 'revenue')
+    .reduce((sum, revenue) => sum + revenue.TRANSACTION_AMOUNT, 0)
+
+  const totalExpenseValue = data
+    .filter(transaction => transaction.TRANSACTION_TYPE === 'expense')
+    .reduce((sum, revenue) => sum + revenue.TRANSACTION_AMOUNT, 0)
+
+  const balance = totalRevenuesValue - totalExpenseValue;
 
   return (
     <>
-      <Title order={3} mb={20}>Hello, {usuario?.USER_NAME}</Title>
+      <Title order={3} mb={20}>Hello, {user?.USER_NAME}</Title>
       <SimpleGrid cols={{ base: 1, sm: 3 }}>
         <Paper withBorder p="md" radius="md">
           <Group justify="space-between">
@@ -29,17 +44,8 @@ export default function UserPanel({ user }: UserPanelProps) {
             </Text>
             <IconWallet size={20} color="GrayText" />
           </Group>
-          <Group align="flex-end" gap="xs" mt={25}>
-            <Text size='24px'>{FormatPrice(saldo)}</Text>
-            <Text inline c={saldo > 0 ? 'teal' : 'red'} fz="sm" fw={500}>
-              {saldo > 0 ? <IconArrowUpRight size={20} /> : <IconArrowDownRight size={20} />}
-            </Text>
-          </Group>
-          <Group fz="xs" c="dimmed" mt={7}>
-            total movimentado
-            <Text>
-              {FormatPrice(total)}
-            </Text>
+          <Group align="flex-end" gap="xs" mt={15}>
+            <Text size='24px'>{FormatPrice(balance)}</Text>
           </Group>
         </Paper>
         <Paper withBorder p="md" radius="md">
@@ -49,14 +55,8 @@ export default function UserPanel({ user }: UserPanelProps) {
             </Text>
             <IconArrowDown size={20} color="GrayText" />
           </Group>
-          <Group align="flex-end" gap="xs" mt={25}>
-            <Text size='24px'>{FormatPrice(entrada)}</Text>
-          </Group>
-          <Group fz="xs" c="dimmed" mt={7}>
-            total movimentado
-            <Text>
-              {FormatPrice(total)}
-            </Text>
+          <Group align="flex-end" gap="xs" mt={15}>
+            <Text size='24px'>{FormatPrice(totalRevenuesValue)}</Text>
           </Group>
         </Paper>
         <Paper withBorder p="md" radius="md">
@@ -66,14 +66,8 @@ export default function UserPanel({ user }: UserPanelProps) {
             </Text>
             <IconArrowUp size={20} color="GrayText" />
           </Group>
-          <Group align="flex-end" gap="xs" mt={25}>
-            <Text size='24px'>{FormatPrice(saida)}</Text>
-          </Group>
-          <Group fz="xs" c="dimmed" mt={7}>
-            total movimentado
-            <Text>
-              {FormatPrice(total)}
-            </Text>
+          <Group align="flex-end" gap="xs" mt={15}>
+            <Text size='24px'>{FormatPrice(totalExpenseValue)}</Text>
           </Group>
         </Paper>
       </SimpleGrid>

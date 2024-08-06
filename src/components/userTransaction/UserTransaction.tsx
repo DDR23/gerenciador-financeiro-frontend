@@ -6,13 +6,13 @@ import useGet from '../../hooks/useGet';
 import Loading from '../_ui/loading/Loading';
 
 export interface UserTransactionProps {
-  TRANSACTION_ID?: number
-  TRANSACTION_DESCRIPTION?: string
-  TRANSACTION_AMOUNT?: number
-  TRANSACTION_DATE?: string
-  TRANSACTION_TYPE?: 'revenue' | 'expense'
-  FK_USER_ID?: number
-  FK_CATEGORY_ID?: number
+  TRANSACTION_ID: number
+  TRANSACTION_DESCRIPTION: string
+  TRANSACTION_AMOUNT: number
+  TRANSACTION_DATE: string
+  TRANSACTION_TYPE: 'revenue' | 'expense'
+  FK_USER_ID: number
+  FK_CATEGORY_ID: number
 }
 
 export default function UserTransaction() {
