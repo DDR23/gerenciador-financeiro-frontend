@@ -70,7 +70,7 @@ export default function Categories() {
             </Table>
           </ScrollArea>
         ) : (
-          <Table h='60vh' verticalSpacing="xs" highlightOnHover withRowBorders={false} ta='center'>
+          <Table h='60vh' verticalSpacing="xs" withRowBorders={false} ta='center'>
             <Table.Tbody>
               <Table.Tr>
                 <Table.Td><Text c='dimmed'>No categories...</Text></Table.Td>

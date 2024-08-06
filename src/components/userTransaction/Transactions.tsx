@@ -87,7 +87,7 @@ export default function Transactions({ transactions, token }: TransactionsProps)
             </Table>
           </ScrollArea>
         ) : (
-          <Table h='60vh' verticalSpacing="xs" highlightOnHover withRowBorders={false} ta='center'>
+          <Table h='60vh' verticalSpacing="xs" withRowBorders={false} ta='center'>
             <Table.Tbody>
               <Table.Tr>
                 <Table.Td><Text c='dimmed'>No transactions...</Text></Table.Td>
