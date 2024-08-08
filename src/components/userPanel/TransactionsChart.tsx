@@ -45,7 +45,7 @@ export default function TransactionChart({ transactions }: TransactionChartProps
           No data...
         </Stack>
       ) : (
-        <Stack justify="center" px={70} w='100%' h='100%'>
+        <Stack justify="center" px={20} w='100%' h='100%'>
           <BarChart
             h={300}
             data={data}
@@ -57,6 +57,7 @@ export default function TransactionChart({ transactions }: TransactionChartProps
               { name: 'Expense', color: 'red.6' },
             ]}
             tickLine="y"
+            withYAxis={false}
           />
         </Stack>
       )}
