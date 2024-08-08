@@ -73,7 +73,7 @@ export default function Transactions({ transactions, token }: TransactionsProps)
         {transactions && transactions.length > 0 ? (
           <ScrollArea h='60vh' offsetScrollbars scrollbarSize={8}>
             <Table verticalSpacing="xs" striped highlightOnHover withRowBorders={false}>
-              <Table.Thead pos='sticky' bg='#232323'>
+              <Table.Thead pos='sticky' style={{ backdropFilter: `blur(100px)` }}>
                 <Table.Tr>
                   <Table.Th>Name</Table.Th>
                   <Table.Th ta='end'>Amount</Table.Th>
