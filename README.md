@@ -2,5 +2,3 @@
 
 🎯 Etapas de Desenvolvimento
 ...
-
-<!-- TODO - desenvolver area de chart -->
