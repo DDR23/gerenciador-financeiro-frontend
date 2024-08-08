@@ -47,7 +47,7 @@ export default function TransactionChart({ transactions }: TransactionChartProps
       ) : (
         <Stack justify="center" px={20} w='100%' h='100%'>
           <BarChart
-            h={300}
+            h='90%'
             data={data}
             dataKey="month"
             withLegend
