@@ -2,3 +2,5 @@
 
 🎯 Etapas de Desenvolvimento
 ...
+
+TODO - fazer uma mini documentaçõa do projeto do README.md e hospedagem
