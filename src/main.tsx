@@ -2,6 +2,7 @@ import React from 'react'
 import '@mantine/core/styles.css';
 import '@mantine/notifications/styles.css';
 import '@mantine/dates/styles.css';
+import '@mantine/charts/styles.css';
 import './styles/globals.scss'
 import App from './App.tsx'
 import ReactDOM from 'react-dom/client'

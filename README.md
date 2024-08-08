@@ -3,4 +3,4 @@
 🎯 Etapas de Desenvolvimento
 ...
 
-<!-- TODO - desenvolver area de dashboard -->
+<!-- TODO - desenvolver area de chart -->
