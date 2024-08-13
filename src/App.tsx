@@ -28,20 +28,17 @@ const theme = createTheme({
       "#009e4f"
     ]
   }
-  // components: {}
 });
 
 export default function App() {
   const { isAuthenticated } = useAuth();
 
   return (
-    <>
-      <MantineProvider theme={theme} defaultColorScheme="auto">
-        <Notifications />
-        <BackgroundImage src='wallpaper.png'>
-          {isAuthenticated ? <Dashboard /> : <Home />}
-        </BackgroundImage>
-      </MantineProvider>
-    </>
+    <MantineProvider theme={theme} defaultColorScheme="auto">
+      <Notifications />
+      <BackgroundImage src='wallpaper.png'>
+        {isAuthenticated ? <Dashboard /> : <Home />}
+      </BackgroundImage>
+    </MantineProvider>
   )
 }
