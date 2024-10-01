@@ -1,4 +1,4 @@
-# atividade---FRONTEND---your-finance-io---Escola-DNC
+# atividade---FRONTEND---your-finance-io---Escola-DNC - descontinuado
 
 ## Sobre o projeto
 Esse é um projeto divido em 2 partes, trata-se de um sistema de controle financeiro pessoal, essa parte é o FRONTEND do sistema.
