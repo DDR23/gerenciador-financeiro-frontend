@@ -2,6 +2,7 @@
 
 ## Sobre o projeto
 Projeto descontinuado
+
 Esse é um projeto divido em 2 partes, trata-se de um sistema de controle financeiro pessoal, essa parte é o FRONTEND do sistema.
 
 Projeto hospedado em: Esse projeto nao possui hospedagem por nao ter encontrado local pra hospedar o banco mySQL
