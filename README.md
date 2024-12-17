@@ -1,4 +1,4 @@
-# atividade---FRONTEND---your-finance-io---Escola-DNC
+# gerenciador-financeiro-frontend
 
 ## Sobre o projeto
 Projeto descontinuado
