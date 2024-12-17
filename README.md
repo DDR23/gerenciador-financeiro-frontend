@@ -3,9 +3,9 @@
 ## Sobre o projeto
 Projeto descontinuado
 
-Esse é um projeto divido em 2 partes, trata-se de um sistema de controle financeiro pessoal, essa parte é o FRONTEND do sistema.
+Esse é um projeto divido em 2 partes, trata-se de um sistema de controle financeiro pessoal, essa parte é o FRONTEND do sistema, integrado ao backend ele fornece permite visualizar, criar, editar e deletar registros financeiros.
 
-Projeto hospedado em: Esse projeto nao possui hospedagem por nao ter encontrado local pra hospedar o banco mySQL
+Projeto hospedado em:
 
 ## Comandos para rodar o projeto
 
